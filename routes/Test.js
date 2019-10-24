@@ -8,15 +8,33 @@ module.exports = (app = express()) => {
         res.send("ok");
     });
 
-    app.get("/question", async (req, res) => {
+    //Get All question from server database
+    app.get("/test/api/question", async (req, res) => {
         const data = await Question.find();
         res.send(data);
     });
 
-    app.post("/question", async (req, res) => {
-        const user = new QuestionList({ dog: 1234 });
-        await user.save();
+    //Get specific question List
+    app.get("/test/api/question/:id", async (req, res) => {
+        const data = await QuestionList.findById(req.params.id);
+        res.send(data);
+    });
 
-        res.send(user);
+    app.post("/test/api/question", async (req, res) => {
+        let data = req.body;
+
+        let newQuestionList = new QuestionList({
+            owner: "5db024590e319436dcf32c74",
+            questions: [
+                {
+                    question: "who dis",
+                    answer: 1,
+                    option: ["dog", "cat", "cow", "pig"]
+                }
+            ]
+        });
+
+        newQuestionList.save();
+        res.send();
     });
 };
