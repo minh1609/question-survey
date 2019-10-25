@@ -24,14 +24,20 @@ module.exports = (app = express()) => {
         let data = req.body;
 
         let newQuestionList = new QuestionList({
+            name: "Sample Question",
             owner: "5db024590e319436dcf32c74",
+            description: "Cartool Animal",
             questions: [
                 {
-                    question: "who dis",
-                    answer: 1,
+                    question: "What animal is Tom",
                     option: ["dog", "cat", "cow", "pig"]
+                },
+                {
+                    question: "What animal is Jerry",
+                    option: ["dog", "cat", "mouse", "pig"]
                 }
-            ]
+            ],
+            answer: [1, 2]
         });
 
         newQuestionList.save();

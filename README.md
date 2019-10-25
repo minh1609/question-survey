@@ -2,4 +2,6 @@
 
 ### Description
 
-This project allow user to
+Application help user to send survey, give a test
+
+### In progress

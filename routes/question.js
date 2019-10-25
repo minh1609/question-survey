@@ -12,8 +12,12 @@ module.exports = (app = express()) => {
 
     //Get specific question List
     app.get("/api/question/:id", async (req, res) => {
-        const data = await QuestionList.findById(req.params.id);
-        res.status(200).send(data);
+        try {
+            const data = await QuestionList.findById(req.params.id);
+            res.status(200).send(data);
+        } catch (error) {
+            res.send(error);
+        }
     });
 
     //Add a new question list
@@ -22,11 +26,14 @@ module.exports = (app = express()) => {
 
         let newQuestionList = new QuestionList({
             name,
-            owner,
             questions
         });
 
-        await newQuestionList.save();
-        res.status(201).send();
+        try {
+            await newQuestionList.save();
+            res.status(201).send();
+        } catch (error) {
+            res.status(401).send();
+        }
     });
 };
