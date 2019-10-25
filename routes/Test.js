@@ -37,7 +37,7 @@ module.exports = (app = express()) => {
                     option: ["dog", "cat", "mouse", "pig"]
                 }
             ],
-            answer: [1, 2]
+            answers: { 0: 1, 1: 2 } //ANSWER FOR QUESTION 0 IS CAT
         });
 
         newQuestionList.save();

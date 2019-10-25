@@ -1,20 +1,24 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
+import { answer } from "../../actions";
+
+//data {option, _id, question}
 const Question = ({ data }) => {
     useEffect(() => {
         console.log(data);
     }, []);
 
+    const dispatch = useDispatch();
+    let userAnswer = useSelector(state => state.userAnswer);
+
     const renderOption = () => {
         return data.option.map(e => (
             <div class="col-xl-3 col-md-6 mb-2">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="card-body" style={{ padding: "10px" }}>
                         <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">{e}</div>
-                            <div class="col-auto">
-                                <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                            </div>
+                            <div class="col ">{e}</div>
                         </div>
                     </div>
                 </div>

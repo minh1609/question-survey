@@ -1,4 +1,4 @@
-import { FETCH_QUESTION, FETCH_QUESTIONS } from "../actions/type";
+import { FETCH_QUESTIONS } from "../actions/type";
 
 export default (state = [], action) => {
     switch (action.type) {
