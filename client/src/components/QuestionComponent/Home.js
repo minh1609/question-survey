@@ -18,15 +18,12 @@ const Home = ({ history }) => {
 
     const renderQuestionList = () => {
         return questions.map(e => (
-            <div
-                key={e._id}
-                className="col-sm-12 col-lg-6"
-                onClick={() => redirect(e._id)}
-            >
+            <div key={e._id} className="col-sm-12 col-lg-6">
                 <div className="card shadow mb-4">
                     <div
                         className="card-header py-3"
                         style={{ cursor: "pointer" }}
+                        onClick={() => redirect(e._id)}
                     >
                         <h6 className="m-0 font-weight-bold text-primary">
                             {e.name}
@@ -38,7 +35,19 @@ const Home = ({ history }) => {
         ));
     };
 
-    return <div className="row">{renderQuestionList()}</div>;
+    return (
+        <div className="text-center">
+            <div className="row">{renderQuestionList()}</div>
+            <button
+                className="btn btn-success btn-rounded shadow mx-auto p-3"
+                onClick={() => {
+                    history.push("/create");
+                }}
+            >
+                Create your own Question Set
+            </button>
+        </div>
+    );
 };
 
 export default Home;

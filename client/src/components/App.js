@@ -4,6 +4,7 @@ import "../style.css";
 
 import QuestionList from "./QuestionComponent/QuestionList";
 import Home from "./QuestionComponent/Home";
+import CreateQuestion from "./QuestionComponent/CreateQuestionList";
 
 import Header from "./Header";
 
@@ -19,6 +20,7 @@ const App = () => {
                         path="/question/:id"
                         component={QuestionList}
                     />
+                    <Route exact path="/create" component={CreateQuestion} />
                 </Switch>
             </div>
         </BrowserRouter>

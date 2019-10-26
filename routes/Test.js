@@ -24,13 +24,13 @@ module.exports = (app = express()) => {
         let data = req.body;
 
         let newQuestionList = new QuestionList({
-            name: "Sample Question",
+            name: "Many Options",
             owner: "5db024590e319436dcf32c74",
             description: "Cartool Animal",
             questions: [
                 {
                     question: "What animal is Tom",
-                    option: ["dog", "cat", "cow", "pig"]
+                    option: ["dog", "cat", "cow", "pig", "mouse", "platypus"]
                 },
                 {
                     question: "What animal is Jerry",

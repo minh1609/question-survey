@@ -9,9 +9,10 @@ const QuestionList = props => {
     let id = props.match.params.id;
     const dispatch = useDispatch();
     let questionList = useSelector(state => state.currentQuestionList);
+    let userAnswer = useSelector(state => state.userAnswer) || [];
 
     useEffect(() => {
-        dispatch(fetchQuestion(id));
+        dispatch(fetchQuestion(id)); //auto fetch data when page loaded
     }, []);
 
     const renderEachQuestion = () => {
@@ -24,6 +25,17 @@ const QuestionList = props => {
         }
     };
 
+    const marking = () => {
+        let score = 0;
+        console.log(userAnswer);
+        for (let i = 0; i < userAnswer.length; i++) {
+            if (userAnswer[i] === questionList.answers[i]) {
+                score++;
+            }
+        }
+        alert(score);
+    };
+
     return (
         <React.Fragment>
             <div className="mb-4">
@@ -31,7 +43,12 @@ const QuestionList = props => {
                 <i>{questionList.description}</i>
             </div>
             {renderEachQuestion()}
-            <button className="mx-auto btn btn-primary float">Submit</button>
+            <button
+                className="mx-auto btn btn-primary float mb-4"
+                onClick={marking}
+            >
+                Submit
+            </button>
         </React.Fragment>
     );
 };

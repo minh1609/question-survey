@@ -1,9 +1,18 @@
-import { FETCH_QUESTION } from "../actions/type";
+import { FETCH_QUESTION, CLEAR } from "../actions/type";
 
-export default (state = {}, action) => {
+let originalState = {
+    name: "",
+    description: "",
+    questions: [],
+    answers: []
+};
+
+export default (state = originalState, action) => {
     switch (action.type) {
         case FETCH_QUESTION:
             return action.payload;
+        case CLEAR:
+            return originalState;
         default:
             return state;
     }
