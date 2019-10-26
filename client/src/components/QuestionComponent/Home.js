@@ -6,7 +6,7 @@ import { fetchQuestions } from "../../actions";
 
 const Home = ({ history }) => {
     const dispatch = useDispatch();
-    const questions = useSelector(state => state.questionsList);
+    const questions = useSelector(state => state.questionsSets);
 
     useEffect(() => {
         dispatch(fetchQuestions());

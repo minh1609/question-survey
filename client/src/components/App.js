@@ -2,9 +2,9 @@ import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "../style.css";
 
-import QuestionList from "./QuestionComponent/QuestionList";
+import QuestionList from "./QuestionComponent/QuestionSet";
 import Home from "./QuestionComponent/Home";
-import CreateQuestion from "./QuestionComponent/CreateQuestionList";
+import CreateQuestion from "./QuestionComponent/CreateQuestionSet";
 
 import Header from "./Header";
 

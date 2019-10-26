@@ -8,7 +8,7 @@ const CreateQuestion = () => {
         dispatch({ type: "CLEAR" });
     });
 
-    const renderQuestionList = () => {};
+    const renderQuestionSet = () => {};
 
     return (
         <div>

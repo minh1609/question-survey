@@ -5,10 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import Question from "./Question";
 import { fetchQuestion } from "../../actions";
 
-const QuestionList = props => {
+const QuestionSet = props => {
     let id = props.match.params.id;
     const dispatch = useDispatch();
-    let questionList = useSelector(state => state.currentQuestionList);
+    let questionList = useSelector(state => state.currentQuestionSet);
     let userAnswer = useSelector(state => state.userAnswer) || [];
 
     useEffect(() => {
@@ -53,4 +53,4 @@ const QuestionList = props => {
     );
 };
 
-export default QuestionList;
+export default QuestionSet;
