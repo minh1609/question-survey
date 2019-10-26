@@ -1,6 +1,5 @@
 //Display each question List
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 
 import Question from "./Question";
@@ -17,10 +16,12 @@ const QuestionList = props => {
 
     const renderEachQuestion = () => {
         try {
-            return questionList.questions.map(e => (
-                <Question key={e._id} data={e} />
+            return questionList.questions.map((e, index) => (
+                <Question key={e._id} data={e} questionNumber={index} />
             ));
-        } catch (error) {}
+        } catch (error) {
+            return <div>Loading</div>;
+        }
     };
 
     return (
@@ -30,6 +31,7 @@ const QuestionList = props => {
                 <i>{questionList.description}</i>
             </div>
             {renderEachQuestion()}
+            <button className="mx-auto btn btn-primary float">Submit</button>
         </React.Fragment>
     );
 };

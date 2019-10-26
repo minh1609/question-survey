@@ -12,6 +12,6 @@ export const fetchQuestion = id => async (dispatch, getState) => {
     dispatch({ type: FETCH_QUESTION, payload: res.data });
 };
 
-export const answer = data => {
-    return { type: ANSWER, payload: data };
+export const answer = (questionNumber, option) => {
+    return { type: ANSWER, payload: { questionNumber, option } };
 };
