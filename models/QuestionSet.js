@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 
-const questionSchema = require("./Question");
+const Question = require("./Question");
 
 const questionSetSchema = new mongoose.Schema({
     name: { type: String, required: true },
-    questions: [questionSchema],
+    questions: [{ type: mongoose.Schema.Types.ObjectId, ref: "Question" }],
     description: { type: String, default: "No description" },
     answers: { type: Array }
     //owner: { type: mongoose.Schema.Types.ObjectId, ref: "User" }

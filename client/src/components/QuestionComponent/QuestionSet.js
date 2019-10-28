@@ -1,15 +1,20 @@
 //Display each question List
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import QuestionForm from "../FormComponent/QuestionForm";
+import { reset } from "redux-form";
 
 import Question from "./Question";
 import { fetchQuestion } from "../../actions";
 
 const QuestionSet = props => {
-    let id = props.match.params.id;
     const dispatch = useDispatch();
     let questionList = useSelector(state => state.currentQuestionSet);
     let userAnswer = useSelector(state => state.userAnswer) || [];
+    let form = useSelector(state => state.form.Question);
+
+    let id = props.match.params.id; //question set ID
 
     useEffect(() => {
         dispatch(fetchQuestion(id)); //auto fetch data when page loaded
@@ -36,6 +41,17 @@ const QuestionSet = props => {
         alert(score);
     };
 
+    const addNewQuestion = async () => {
+        let { question, option, answer } = form.values;
+        await axios.post(`/api/questionset/${id}`, {
+            question,
+            option,
+            answer
+        });
+        dispatch(fetchQuestion(id));
+        dispatch(reset("Question"));
+    };
+
     return (
         <React.Fragment>
             <div className="mb-4">
@@ -47,8 +63,15 @@ const QuestionSet = props => {
                 className="mx-auto btn btn-primary float mb-4"
                 onClick={marking}
             >
-                Submit
+                Mark my score
             </button>
+            <h4>Add new question to this set</h4>
+
+            {/* Add new question to set */}
+            <QuestionForm
+                initialValues={{ question: "", option: "", answer: "" }}
+            />
+            <button onClick={addNewQuestion}>Add this question</button>
         </React.Fragment>
     );
 };

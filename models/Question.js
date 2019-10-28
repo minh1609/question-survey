@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 
 const questionSchema = new mongoose.Schema({
     question: { type: String, required: true },
-    option: { type: Array, required: true }
+    option: { type: Array, required: true },
+    answer: { type: Number, required: true }
 });
-module.exports = questionSchema;
+const Question = mongoose.model("Question", questionSchema);
+module.exports = Question;

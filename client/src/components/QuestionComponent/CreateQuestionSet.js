@@ -1,59 +1,40 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Field, reduxForm } from "redux-form";
+import QuestionSetForm from "../FormComponent/QuestionSetForm";
+import axios from "axios";
 
-const CreateQuestion = () => {
+let CreateQuestion = () => {
     const dispatch = useDispatch();
+    let form = useSelector(state => state.form.QuestionSetMetaInfo);
 
     useEffect(() => {
         dispatch({ type: "CLEAR" });
     });
 
-    const renderQuestionSet = () => {};
+    const handleClick = async () => {
+        let data = await axios.post("/api/questionset", {
+            name: form.values.name,
+            description: form.values.description
+        });
+        if (data.status === 200 || data.status === 201) {
+            alert("sucecessfully createad");
+            //history push
+        }
+    };
 
     return (
         <div>
-            <div class="form-group">
-                <label>Title</label>
-                <input className="form-control" placeholder="Enter Title" />
-            </div>
-            <div class="form-group">
-                <label>Description</label>
-                <textarea className="form-control" placeholder="Description" />
-            </div>
-
-            <h2>Question Set</h2>
-
-            <div class="form-group">
-                <label>Question ?</label>
-                <input
-                    className="form-control"
-                    placeholder="Example: Who is president of United State ?"
-                />
-            </div>
-
-            <div class="form-group">
-                <label>Options</label>
-                <textarea
-                    className="form-control"
-                    placeholder="Example: Donald Trump | Donal Duck | Obama"
-                />
-                <small> Each option are seperated by | symbol</small>
-            </div>
-
-            <div class="form-group">
-                <label>Answer</label>
-                <input className="form-control" placeholder="Example: 0" />
-                <small>0 for first option, 1 for second, ...</small>
-            </div>
-            <button className=" btn btn-secondary">
-                Add this question to the set
-            </button>
-            <br />
-            <button className="my-5 p-3 btn btn-primary">
-                Finish and Submit
+            <QuestionSetForm initialValues={{ name: "", description: "" }} />
+            <button className="btn btn-primary p-2" onClick={handleClick}>
+                Create
             </button>
         </div>
     );
 };
+
+CreateQuestion = reduxForm({
+    form: "QuestionSetMeta"
+})(CreateQuestion);
 
 export default CreateQuestion;

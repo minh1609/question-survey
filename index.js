@@ -24,7 +24,7 @@ app.use(bodyParser.json());
 
 //Define Route
 require("./routes/Test")(app);
-require("./routes/question")(app);
+require("./routes/questionSetRoute")(app);
 
 //PRODUCTION SET UP
 if (process.env.NODE_ENV === "production" || process.env.NODE_ENV === "ci") {

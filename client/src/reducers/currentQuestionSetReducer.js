@@ -7,7 +7,7 @@ let originalState = {
     answers: []
 };
 
-export default (state = originalState, action) => {
+export default (state = {}, action) => {
     switch (action.type) {
         case FETCH_QUESTION:
             return action.payload;

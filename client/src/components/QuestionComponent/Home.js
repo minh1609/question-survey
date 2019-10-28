@@ -13,7 +13,7 @@ const Home = ({ history }) => {
     }, []);
 
     const redirect = id => {
-        history.push(`/question/${id}`);
+        history.push(`/questionset/${id}`);
     };
 
     const renderQuestionList = () => {
@@ -41,7 +41,7 @@ const Home = ({ history }) => {
             <button
                 className="btn btn-success btn-rounded shadow mx-auto p-3"
                 onClick={() => {
-                    history.push("/create");
+                    history.push("/create/questionset");
                 }}
             >
                 Create your own Question Set

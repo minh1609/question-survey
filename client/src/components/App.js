@@ -2,9 +2,9 @@ import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "../style.css";
 
-import QuestionList from "./QuestionComponent/QuestionSet";
+import QuestionSet from "./QuestionComponent/QuestionSet";
 import Home from "./QuestionComponent/Home";
-import CreateQuestion from "./QuestionComponent/CreateQuestionSet";
+import CreateQuestionSet from "./QuestionComponent/CreateQuestionSet";
 
 import Header from "./Header";
 
@@ -17,10 +17,14 @@ const App = () => {
                     <Route exact path="/" component={Home} />
                     <Route
                         exact
-                        path="/question/:id"
-                        component={QuestionList}
+                        path="/questionset/:id"
+                        component={QuestionSet}
                     />
-                    <Route exact path="/create" component={CreateQuestion} />
+                    <Route
+                        exact
+                        path="/create/questionset"
+                        component={CreateQuestionSet}
+                    />
                 </Switch>
             </div>
         </BrowserRouter>
