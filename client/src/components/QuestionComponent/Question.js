@@ -3,22 +3,24 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import editQuestion from "components/QuestionComponent/EditQuestion";
+import mySwal from "services/swal";
 
 import { answer, fetchQuestion } from "../../actions";
+import EditQuestion from "components/QuestionComponent/EditQuestion";
+import QuestionForm from "components/FormComponent/QuestionForm";
 
 //data: {option, _id, question}
 //questionNumber: order of question in QuestionSet array
 //setId: an Id of question set where this question belong to
 
 const Question = ({ data, questionNumber, setId, history }) => {
+    const dispatch = useDispatch();
+    let userAnswer = useSelector(state => state.userAnswer);
+
     const convertNumber = n => {
         if (n === undefined) return "...";
         return String.fromCharCode(n + 65);
     };
-
-    const dispatch = useDispatch();
-    let userAnswer = useSelector(state => state.userAnswer);
 
     const submitAnswer = (questionNumber, option) => {
         dispatch(answer(questionNumber, option));
@@ -31,10 +33,6 @@ const Question = ({ data, questionNumber, setId, history }) => {
         if (result.status === 200 || result.status === 201)
             dispatch(fetchQuestion(setId));
     };
-
-    // const editQuestion = () => {
-    //     history.push("/edit/question/123");
-    // };
 
     const renderOption = () => {
         return data.option.map((e, index) => (
@@ -61,9 +59,9 @@ const Question = ({ data, questionNumber, setId, history }) => {
         <div class="card shadow mb-4 border-bottom-secondary">
             <div class="card-header">
                 <div style={{ float: "right" }} className="pointer icon">
-                    <div className="mx-2">
+                    <Link to={`/edit/question/${data._id}`} className="mx-2">
                         <i className="fas fa-pen-square  hover-green" />
-                    </div>
+                    </Link>
 
                     <div onClick={deleteQuestion}>
                         <i className="fas fa-trash hover-red"></i>

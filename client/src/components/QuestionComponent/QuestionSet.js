@@ -71,8 +71,8 @@ const QuestionSet = props => {
     };
 
     const deleteQuestionSet = async () => {
-        await axios.delete(`/api/questionset/${id}`);
-        history.push("/");
+        let data = await axios.delete(`/api/questionset/${id}`);
+        if (data.status === 200 || data.status === 201) history.push("/");
     };
 
     return (

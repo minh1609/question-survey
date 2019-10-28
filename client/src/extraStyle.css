@@ -2,6 +2,11 @@
     transition: 1s;
 }
 
+a {
+    text-decoration: none !important;
+    color: inherit;
+}
+
 .pointer:hover {
     cursor: pointer;
 }
