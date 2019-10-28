@@ -23,7 +23,12 @@ const QuestionSet = props => {
     const renderEachQuestion = () => {
         try {
             return questionList.questions.map((e, index) => (
-                <Question key={e._id} data={e} questionNumber={index} />
+                <Question
+                    key={e._id}
+                    data={e}
+                    questionNumber={index}
+                    setId={id}
+                />
             ));
         } catch (error) {
             return <div>Loading</div>;
@@ -55,23 +60,27 @@ const QuestionSet = props => {
     return (
         <React.Fragment>
             <div className="mb-4">
+                <button
+                    className="mx-auto btn btn-info float mb-4 shadow"
+                    onClick={marking}
+                    style={{ float: "right" }}
+                >
+                    Mark my score
+                </button>
                 <h3 className="text-gray-800 mb-0">{questionList.name}</h3>
                 <i>{questionList.description}</i>
             </div>
             {renderEachQuestion()}
-            <button
-                className="mx-auto btn btn-primary float mb-4"
-                onClick={marking}
-            >
-                Mark my score
-            </button>
+
             <h4>Add new question to this set</h4>
 
             {/* Add new question to set */}
             <QuestionForm
                 initialValues={{ question: "", option: "", answer: "" }}
             />
-            <button onClick={addNewQuestion}>Add this question</button>
+            <button className="btn btn-success shadow" onClick={addNewQuestion}>
+                Add
+            </button>
         </React.Fragment>
     );
 };

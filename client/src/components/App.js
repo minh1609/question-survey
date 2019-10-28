@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "../style.css";
+import "../extraStyle.css";
 
 import QuestionSet from "./QuestionComponent/QuestionSet";
 import Home from "./QuestionComponent/Home";

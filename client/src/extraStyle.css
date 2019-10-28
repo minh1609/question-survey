@@ -1,0 +1,21 @@
+* {
+    transition: 1s;
+}
+
+.pointer:hover {
+    cursor: pointer;
+}
+
+.icon {
+    font-size: 15px;
+    color: #d1d3e2;
+    transition: 1s;
+}
+
+.hover-red:hover {
+    color: red;
+}
+
+.hover-green:hover {
+    color: green;
+}

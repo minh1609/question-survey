@@ -1,13 +1,16 @@
 //THIS COMPONENT RENDER EACH QUESTION AND ITS OPTIONS IN QUESTION LIST
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
 
-import { answer } from "../../actions";
+import { answer, fetchQuestion } from "../../actions";
+import { async } from "q";
 
-//data {option, _id, question}
+//data: {option, _id, question}
 //questionNumber: order of question in QuestionSet array
+//setId: an Id of question set where this question belong to
 
-const Question = ({ data, questionNumber }) => {
+const Question = ({ data, questionNumber, setId }) => {
     const convertNumber = n => {
         if (n === undefined) return "...";
         return String.fromCharCode(n + 65);
@@ -18,7 +21,13 @@ const Question = ({ data, questionNumber }) => {
 
     const submitAnswer = (questionNumber, option) => {
         dispatch(answer(questionNumber, option));
-        console.log(answer(questionNumber, option));
+    };
+
+    const deleteQuestion = async () => {
+        let result = await axios.delete(
+            `/api/questionset/${setId}/${data._id}`
+        );
+        if (result.status === 200) dispatch(fetchQuestion(setId));
     };
 
     const renderOption = () => {
@@ -43,11 +52,13 @@ const Question = ({ data, questionNumber }) => {
     };
 
     return (
-        <div class="card shadow mb-4 border-left-primary">
+        <div class="card shadow mb-4 border-bottom-secondary">
             <div class="card-header">
                 <div style={{ float: "right" }}>
-                    <i className="fas fa-pen-square mx-2"></i>
-                    <i className="fas fa-trash"></i>
+                    <div onClick={deleteQuestion} className="pointer icon">
+                        <i className="fas fa-pen-square mx-2 hover-green" />
+                        <i className="fas fa-trash hover-red"></i>
+                    </div>
                 </div>
                 {questionNumber}. {data.question}
             </div>
