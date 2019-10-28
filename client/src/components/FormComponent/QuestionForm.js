@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
 import { Field, reduxForm } from "redux-form";
 
 let QuestionForm = props => {
@@ -11,7 +10,7 @@ let QuestionForm = props => {
                 component="input"
                 type="text"
                 className="form-control mb-3"
-                placeholder="Example: Who is president of United State ?"
+                placeholder="Example: Who is the current president of United State ?"
             />
             <label>Option for your question, seperate each option by ||</label>
             <Field
@@ -19,7 +18,7 @@ let QuestionForm = props => {
                 component="textarea"
                 type="text"
                 className="form-control mb-3"
-                placeholder="Example: Donald Trump | Donal Duck | Obama"
+                placeholder="Example: Donald Trump||Donald Duck||Barack Obama"
             />
             <label>Answer</label>
             <Field

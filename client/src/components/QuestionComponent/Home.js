@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 
 import { fetchQuestions } from "../../actions";
 
@@ -36,16 +35,21 @@ const Home = ({ history }) => {
     };
 
     return (
-        <div className="text-center">
-            <div className="row">{renderQuestionList()}</div>
+        <div>
             <button
-                className="btn btn-success btn-rounded shadow mx-auto p-3"
+                className="btn btn-success shadow p-2 mb-5 "
                 onClick={() => {
                     history.push("/create/questionset");
+                }}
+                style={{
+                    position: "fixed",
+                    bottom: "10px"
                 }}
             >
                 Create your own Question Set
             </button>
+
+            <div className="row">{renderQuestionList()}</div>
         </div>
     );
 };

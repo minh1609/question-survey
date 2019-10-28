@@ -6,6 +6,7 @@ import "../extraStyle.css";
 import QuestionSet from "./QuestionComponent/QuestionSet";
 import Home from "./QuestionComponent/Home";
 import CreateQuestionSet from "./QuestionComponent/CreateQuestionSet";
+import EditQuestion from "components/QuestionComponent/EditQuestion";
 
 import Header from "./Header";
 
@@ -25,6 +26,11 @@ const App = () => {
                         exact
                         path="/create/questionset"
                         component={CreateQuestionSet}
+                    />
+                    <Route
+                        exact
+                        path="/edit/question/:id"
+                        component={EditQuestion}
                     />
                 </Switch>
             </div>

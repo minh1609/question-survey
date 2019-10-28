@@ -12,6 +12,10 @@
     transition: 1s;
 }
 
+.icon div {
+    display: inline;
+}
+
 .hover-red:hover {
     color: red;
 }

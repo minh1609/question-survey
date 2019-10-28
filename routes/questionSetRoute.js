@@ -40,6 +40,15 @@ module.exports = (app = express()) => {
         }
     });
 
+    app.delete("/api/questionset/:setId", async (req, res) => {
+        try {
+            let data = await QuestionSet.findByIdAndDelete(req.params.setId);
+            res.status(201).send(data);
+        } catch (error) {
+            res.send(error);
+        }
+    });
+
     //Add a new question to questioon set
     app.post("/api/questionset/:setid", async (req, res) => {
         let { question, option, answer } = req.body;

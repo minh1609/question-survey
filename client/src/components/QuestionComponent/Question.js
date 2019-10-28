@@ -1,16 +1,17 @@
 //THIS COMPONENT RENDER EACH QUESTION AND ITS OPTIONS IN QUESTION LIST
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import { Link } from "react-router-dom";
+import editQuestion from "components/QuestionComponent/EditQuestion";
 
 import { answer, fetchQuestion } from "../../actions";
-import { async } from "q";
 
 //data: {option, _id, question}
 //questionNumber: order of question in QuestionSet array
 //setId: an Id of question set where this question belong to
 
-const Question = ({ data, questionNumber, setId }) => {
+const Question = ({ data, questionNumber, setId, history }) => {
     const convertNumber = n => {
         if (n === undefined) return "...";
         return String.fromCharCode(n + 65);
@@ -27,8 +28,13 @@ const Question = ({ data, questionNumber, setId }) => {
         let result = await axios.delete(
             `/api/questionset/${setId}/${data._id}`
         );
-        if (result.status === 200) dispatch(fetchQuestion(setId));
+        if (result.status === 200 || result.status === 201)
+            dispatch(fetchQuestion(setId));
     };
+
+    // const editQuestion = () => {
+    //     history.push("/edit/question/123");
+    // };
 
     const renderOption = () => {
         return data.option.map((e, index) => (
@@ -54,9 +60,12 @@ const Question = ({ data, questionNumber, setId }) => {
     return (
         <div class="card shadow mb-4 border-bottom-secondary">
             <div class="card-header">
-                <div style={{ float: "right" }}>
-                    <div onClick={deleteQuestion} className="pointer icon">
-                        <i className="fas fa-pen-square mx-2 hover-green" />
+                <div style={{ float: "right" }} className="pointer icon">
+                    <div className="mx-2">
+                        <i className="fas fa-pen-square  hover-green" />
+                    </div>
+
+                    <div onClick={deleteQuestion}>
                         <i className="fas fa-trash hover-red"></i>
                     </div>
                 </div>

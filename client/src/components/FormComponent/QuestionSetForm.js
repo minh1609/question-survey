@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
 import { Field, reduxForm } from "redux-form";
 
 let MetaInfoForm = props => {
-    useEffect(() => console.log(props), []);
     return (
         <div>
             <label>Name</label>
@@ -12,7 +10,8 @@ let MetaInfoForm = props => {
                 component="input"
                 type="text"
                 className="form-control mb-3"
-                placeholder="Enter Title"
+                placeholder="Enter Name"
+                autoComplete="off"
             />
             <label>Description</label>
             <Field
@@ -21,6 +20,7 @@ let MetaInfoForm = props => {
                 type="text"
                 className="form-control mb-3"
                 placeholder="Enter Description"
+                autoComplete="off"
             />
         </div>
     );

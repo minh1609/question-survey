@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Field, reduxForm } from "redux-form";
+import { reduxForm } from "redux-form";
 import QuestionSetForm from "../FormComponent/QuestionSetForm";
 import axios from "axios";
 
-let CreateQuestion = () => {
+let CreateQuestion = ({ history }) => {
     const dispatch = useDispatch();
     let form = useSelector(state => state.form.QuestionSetMetaInfo);
 
@@ -19,14 +19,17 @@ let CreateQuestion = () => {
         });
         if (data.status === 200 || data.status === 201) {
             alert("sucecessfully createad");
-            //history push
+            history.push(`/questionset/${data.data._id}`);
         }
     };
 
     return (
         <div>
             <QuestionSetForm initialValues={{ name: "", description: "" }} />
-            <button className="btn btn-primary p-2" onClick={handleClick}>
+            <button
+                className="btn btn-success p-2 shadow"
+                onClick={handleClick}
+            >
                 Create
             </button>
         </div>

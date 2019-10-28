@@ -4,9 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import QuestionForm from "../FormComponent/QuestionForm";
 import { reset } from "redux-form";
+import MySwal from "services/swal";
 
 import Question from "./Question";
 import { fetchQuestion } from "../../actions";
+import ScoreBar from "components/FormComponent/ScoreBar";
 
 const QuestionSet = props => {
     const dispatch = useDispatch();
@@ -15,9 +17,11 @@ const QuestionSet = props => {
     let form = useSelector(state => state.form.Question);
 
     let id = props.match.params.id; //question set ID
+    let history = props.history;
 
     useEffect(() => {
         dispatch(fetchQuestion(id)); //auto fetch data when page loaded
+        dispatch({ type: "CLEAR_ANSWER" });
     }, []);
 
     const renderEachQuestion = () => {
@@ -37,13 +41,22 @@ const QuestionSet = props => {
 
     const marking = () => {
         let score = 0;
-        console.log(userAnswer);
+        let rightAnswer = questionList.questions.map(e => e.answer) || [];
+
         for (let i = 0; i < userAnswer.length; i++) {
-            if (userAnswer[i] === questionList.answers[i]) {
+            if (userAnswer[i] === rightAnswer[i]) {
                 score++;
             }
         }
-        alert(score);
+        MySwal.fire({
+            title: (
+                <h5>
+                    Your Score : {score}/{rightAnswer.length}{" "}
+                </h5>
+            ),
+            html: <ScoreBar score={score} totalQuestion={rightAnswer.length} />,
+            showConfirmButton: false
+        });
     };
 
     const addNewQuestion = async () => {
@@ -57,6 +70,11 @@ const QuestionSet = props => {
         dispatch(reset("Question"));
     };
 
+    const deleteQuestionSet = async () => {
+        await axios.delete(`/api/questionset/${id}`);
+        history.push("/");
+    };
+
     return (
         <React.Fragment>
             <div className="mb-4">
@@ -66,6 +84,13 @@ const QuestionSet = props => {
                     style={{ float: "right" }}
                 >
                     Mark my score
+                </button>
+                <button
+                    style={{ float: "right" }}
+                    className="btn btn-danger shadow mr-2"
+                    onClick={deleteQuestionSet}
+                >
+                    Delete
                 </button>
                 <h3 className="text-gray-800 mb-0">{questionList.name}</h3>
                 <i>{questionList.description}</i>
@@ -78,7 +103,10 @@ const QuestionSet = props => {
             <QuestionForm
                 initialValues={{ question: "", option: "", answer: "" }}
             />
-            <button className="btn btn-success shadow" onClick={addNewQuestion}>
+            <button
+                className="btn btn-success shadow my-2"
+                onClick={addNewQuestion}
+            >
                 Add
             </button>
         </React.Fragment>
