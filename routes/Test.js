@@ -4,10 +4,6 @@ const QuestionSet = require("../models/QuestionSet");
 const User = require("../models/User");
 
 module.exports = (app = express()) => {
-    app.get("/", (req, res) => {
-        res.send("ok");
-    });
-
     //Get All question from server database
     app.get("/test/api/question", async (req, res) => {
         const data = await QuestionSet.find();
