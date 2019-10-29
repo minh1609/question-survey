@@ -1,21 +1,21 @@
+require("dotenv").config();
+
 const express = require("express");
 const mongoose = require("mongoose");
 const cookieSession = require("cookie-session");
 const passport = require("passport");
 const bodyParser = require("body-parser");
 
-const key = require("./config/key");
-
 require("./services/passport");
 
 const app = express();
-mongoose.connect(key.mongoURI, { useNewUrlParser: true });
+mongoose.connect(process.env.mongoURI, { useNewUrlParser: true });
 
 //Middleware config
 app.use(
     cookieSession({
         maxAge: 30 * 24 * 60 * 60 * 1000,
-        keys: [key.cookieKey]
+        keys: [process.env.cookieKey]
     })
 );
 app.use(passport.initialize());

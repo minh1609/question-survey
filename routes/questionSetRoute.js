@@ -73,11 +73,16 @@ module.exports = (app = express()) => {
     app.delete("/api/questionset/:setId/:questionId", async (req, res) => {
         //remove a reference question Id from Question Set and remove question by Id
         let questionSet = await QuestionSet.findById(req.params.setId);
-        let newQuestions = questionSet.questions;
+        let { questions } = questionSet;
+        let newQuestions = [];
 
-        newQuestions = newQuestions.filter(value => {
-            return value === req.params.questionId;
-        });
+        for (let i = 0; i < questions.length; i++) {
+            let strId = questions[i].toString();
+            if (strId.localeCompare(req.params.questionId) !== 0) {
+                newQuestions.push(questions[i]);
+            }
+        }
+
         questionSet.questions = newQuestions;
 
         Promise.all([
@@ -85,10 +90,10 @@ module.exports = (app = express()) => {
             questionSet.save()
         ])
             .then(result => {
-                res.status(201).send();
+                res.status(201).send(result);
             })
             .catch(err => {
-                res.status(400).send(err);
+                res.status(400).send();
             });
         res.send();
     });

@@ -20,15 +20,12 @@ module.exports = (app = express()) => {
         res.send(data);
     });
 
-    app.post("/test/api/question", async (req, res) => {
-        let data = req.body;
-
-        let newQuestionSet = new QuestionSet({
-            name: "Newly Created Question",
-            description: "Tgis question has no body"
+    app.get("/test/api", async (req, res) => {
+        let ids = ["ab", "cd", "ef"];
+        ids = ids.filter(value => {
+            return value.localeCompare("ab") !== 0;
         });
 
-        newQuestionSet.save();
-        res.send();
+        res.send(ids);
     });
 };

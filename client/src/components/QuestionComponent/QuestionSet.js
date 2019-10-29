@@ -9,6 +9,8 @@ import MySwal from "services/swal";
 import Question from "./Question";
 import { fetchQuestion } from "../../actions";
 import ScoreBar from "components/FormComponent/ScoreBar";
+import { async } from "q";
+import Swal from "sweetalert2";
 
 const QuestionSet = props => {
     const dispatch = useDispatch();
@@ -71,8 +73,17 @@ const QuestionSet = props => {
     };
 
     const deleteQuestionSet = async () => {
-        let data = await axios.delete(`/api/questionset/${id}`);
-        if (data.status === 200 || data.status === 201) history.push("/");
+        MySwal.fire({ title: "Do you want to delete this set ?" }).then(
+            async ({ value }) => {
+                if (value) {
+                    let data = await axios.delete(`/api/questionset/${id}`);
+                    if (data.status === 200 || data.status === 201) {
+                        history.push("/");
+                        MySwal.fire({ type: "success" });
+                    }
+                }
+            }
+        );
     };
 
     return (

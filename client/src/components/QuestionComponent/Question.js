@@ -6,14 +6,12 @@ import { Link } from "react-router-dom";
 import mySwal from "services/swal";
 
 import { answer, fetchQuestion } from "../../actions";
-import EditQuestion from "components/QuestionComponent/EditQuestion";
-import QuestionForm from "components/FormComponent/QuestionForm";
 
 //data: {option, _id, question}
 //questionNumber: order of question in QuestionSet array
 //setId: an Id of question set where this question belong to
 
-const Question = ({ data, questionNumber, setId, history }) => {
+const Question = ({ data, questionNumber, setId }) => {
     const dispatch = useDispatch();
     let userAnswer = useSelector(state => state.userAnswer);
 
@@ -27,11 +25,20 @@ const Question = ({ data, questionNumber, setId, history }) => {
     };
 
     const deleteQuestion = async () => {
-        let result = await axios.delete(
-            `/api/questionset/${setId}/${data._id}`
-        );
-        if (result.status === 200 || result.status === 201)
-            dispatch(fetchQuestion(setId));
+        mySwal
+            .fire({
+                title: "Confirm Delete"
+            })
+            .then(async ({ value }) => {
+                if (value) {
+                    let result = await axios.delete(
+                        `/api/questionset/${setId}/${data._id}`
+                    );
+                    if (result.status === 200 || result.status === 201)
+                        dispatch(fetchQuestion(setId));
+                    mySwal.fire({ title: "", type: "success" });
+                }
+            });
     };
 
     const renderOption = () => {

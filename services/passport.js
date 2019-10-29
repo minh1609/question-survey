@@ -2,8 +2,6 @@ const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const mongoose = require("mongoose");
 
-const key = require("../config/key");
-
 const User = require("../models/User");
 
 //put user infomation inside cookie
@@ -22,8 +20,8 @@ passport.use(
     new GoogleStrategy(
         {
             //public
-            clientID: key.googleClientID,
-            clientSecret: key.googleClientSecret,
+            clientID: process.env.googleClientID,
+            clientSecret: process.env.googleClientSecret,
             //after user have permission, send user back to this route, this must be match the setting Authorised redirect URIs on gg
             callbackURL: "/auth/google/callback",
             //tell google to trust server proxy
