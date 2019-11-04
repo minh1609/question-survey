@@ -18,7 +18,11 @@ const Header = () => {
                 >
                     <ul className="navbar-nav mx-auto text-md-center text-left">
                         <li className="nav-item">
-                            <div className="nav-link">Log In</div>
+                            <Link to="/login">
+                                <div className="nav-link">
+                                    Log In for more feature
+                                </div>
+                            </Link>
                         </li>
                     </ul>
                     <ul className="nav navbar-nav flex-row justify-content-md-center justify-content-start flex-nowrap">

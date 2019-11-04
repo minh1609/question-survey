@@ -1,4 +1,4 @@
-//Display each question List
+// This Component display each question set
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
@@ -7,10 +7,8 @@ import { reset } from "redux-form";
 import MySwal from "services/swal";
 
 import Question from "./Question";
-import { fetchQuestion } from "../../actions";
+import { fetchQuestion } from "actions";
 import ScoreBar from "components/FormComponent/ScoreBar";
-import { async } from "q";
-import Swal from "sweetalert2";
 
 const QuestionSet = props => {
     const dispatch = useDispatch();
@@ -103,14 +101,14 @@ const QuestionSet = props => {
                 >
                     Delete
                 </button>
-                <h3 className="text-gray-800 mb-0">{questionList.name}</h3>
-                <i>{questionList.description}</i>
+                <h3 className="text-gray-800 mb-5">{questionList.name}</h3>
+                <i> {questionList.description} </i>
             </div>
             {renderEachQuestion()}
 
             <h4>Add new question to this set</h4>
 
-            {/* Add new question to set */}
+            {/*Form to add new question to set */}
             <QuestionForm
                 initialValues={{ question: "", option: "", answer: "" }}
             />

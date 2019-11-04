@@ -39,7 +39,10 @@ passport.use(
             if (foundUser) {
                 done(null, foundUser);
             } else {
-                const user = await new User({ googleId: profile.id }).save();
+                const user = await new User({
+                    googleId: profile.id,
+                    name: profile.displayName
+                }).save();
                 done(null, user);
             }
         }

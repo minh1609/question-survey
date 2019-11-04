@@ -26,6 +26,7 @@ app.use(bodyParser.json());
 require("./routes/Test")(app);
 require("./routes/questionSetRoute")(app);
 require("./routes/questionRoute")(app);
+require("./routes/authRoutes")(app);
 
 //PRODUCTION SET UP
 if (process.env.NODE_ENV === "production" || process.env.NODE_ENV === "ci") {
