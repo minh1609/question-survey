@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import QuestionForm from "../FormComponent/QuestionForm";
 import { reset } from "redux-form";
-import MySwal from "services/swal";
+import { DefaultPopUp } from "services/swal";
 
 import Question from "./Question";
 import { fetchQuestion } from "actions";
@@ -15,6 +15,7 @@ const QuestionSet = props => {
     let questionList = useSelector(state => state.currentQuestionSet);
     let userAnswer = useSelector(state => state.userAnswer) || [];
     let form = useSelector(state => state.form.Question);
+    let auth = useSelector(state => state.auth);
 
     let id = props.match.params.id; //question set ID
     let history = props.history;
@@ -24,6 +25,14 @@ const QuestionSet = props => {
         dispatch({ type: "CLEAR_ANSWER" });
     }, []);
 
+    const isAuthorized = () => {
+        if (auth && auth._id.localeCompare(questionList.owner) === 0) {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
     const renderEachQuestion = () => {
         try {
             return questionList.questions.map((e, index) => (
@@ -32,6 +41,7 @@ const QuestionSet = props => {
                     data={e}
                     questionNumber={index}
                     setId={id}
+                    isAuthorized={isAuthorized()}
                 />
             ));
         } catch (error) {
@@ -48,7 +58,7 @@ const QuestionSet = props => {
                 score++;
             }
         }
-        MySwal.fire({
+        DefaultPopUp.fire({
             title: (
                 <h5>
                     Your Score : {score}/{rightAnswer.length}{" "}
@@ -71,13 +81,13 @@ const QuestionSet = props => {
     };
 
     const deleteQuestionSet = async () => {
-        MySwal.fire({ title: "Do you want to delete this set ?" }).then(
+        DefaultPopUp.fire({ title: "Do you want to delete this set ?" }).then(
             async ({ value }) => {
                 if (value) {
                     let data = await axios.delete(`/api/questionset/${id}`);
                     if (data.status === 200 || data.status === 201) {
                         history.push("/");
-                        MySwal.fire({ type: "success" });
+                        DefaultPopUp.fire({ type: "success" });
                     }
                 }
             }
@@ -85,8 +95,11 @@ const QuestionSet = props => {
     };
 
     return (
-        <React.Fragment>
-            <div className="mb-4">
+        <div>
+            <div
+                className="mb-2 sticky-top p-3 shadow mb-3"
+                style={{ backgroundColor: "white", borderRadius: "3px" }}
+            >
                 <button
                     className="mx-auto btn btn-info float mb-4 shadow"
                     onClick={marking}
@@ -101,24 +114,27 @@ const QuestionSet = props => {
                 >
                     Delete
                 </button>
-                <h3 className="text-gray-800 mb-5">{questionList.name}</h3>
+                <h3 className="text-gray-800">{questionList.name}</h3>
                 <i> {questionList.description} </i>
             </div>
             {renderEachQuestion()}
 
-            <h4>Add new question to this set</h4>
-
             {/*Form to add new question to set */}
-            <QuestionForm
-                initialValues={{ question: "", option: "", answer: "" }}
-            />
-            <button
-                className="btn btn-success shadow my-2"
-                onClick={addNewQuestion}
-            >
-                Add
-            </button>
-        </React.Fragment>
+            {isAuthorized() && (
+                <React.Fragment>
+                    <h4>Add new question to this set</h4>
+                    <QuestionForm
+                        initialValues={{ question: "", option: "", answer: "" }}
+                    />
+                    <button
+                        className="btn btn-success shadow my-2"
+                        onClick={addNewQuestion}
+                    >
+                        Add
+                    </button>
+                </React.Fragment>
+            )}
+        </div>
     );
 };
 

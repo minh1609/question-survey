@@ -3,15 +3,15 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import mySwal from "services/swal";
+import { DefaultPopUp } from "services/swal";
 
 import { answer, fetchQuestion } from "../../actions";
 
-//data: {option, _id, question}
+//data: {option, _id, question, owner}
 //questionNumber: order of question in QuestionSet array
 //setId: an Id of question set where this question belong to
 
-const Question = ({ data, questionNumber, setId }) => {
+const Question = ({ data, questionNumber, setId, isAuthorized }) => {
     const dispatch = useDispatch();
     let userAnswer = useSelector(state => state.userAnswer);
 
@@ -25,20 +25,19 @@ const Question = ({ data, questionNumber, setId }) => {
     };
 
     const deleteQuestion = async () => {
-        mySwal
-            .fire({
-                title: "Confirm Delete"
-            })
-            .then(async ({ value }) => {
-                if (value) {
-                    let result = await axios.delete(
-                        `/api/questionset/${setId}/${data._id}`
-                    );
-                    if (result.status === 200 || result.status === 201)
-                        dispatch(fetchQuestion(setId));
-                    mySwal.fire({ title: "", type: "success" });
+        DefaultPopUp.fire({
+            title: "Confirm Delete"
+        }).then(async ({ value }) => {
+            if (value) {
+                let result = await axios.delete(
+                    `/api/questionset/${setId}/${data._id}`
+                );
+                if (result.status === 200 || result.status === 201) {
+                    dispatch(fetchQuestion(setId));
+                    DefaultPopUp.fire({ title: "", type: "success" });
                 }
-            });
+            }
+        });
     };
 
     const renderOption = () => {
@@ -65,15 +64,20 @@ const Question = ({ data, questionNumber, setId }) => {
     return (
         <div class="card shadow mb-4 border-bottom-secondary">
             <div class="card-header">
-                <div style={{ float: "right" }} className="pointer icon">
-                    <Link to={`/edit/question/${data._id}`} className="mx-2">
-                        <i className="fas fa-pen-square  hover-green" />
-                    </Link>
+                {isAuthorized && (
+                    <div style={{ float: "right" }} className="pointer icon">
+                        <Link
+                            to={`/edit/question/${data._id}`}
+                            className="mx-2"
+                        >
+                            <i className="fas fa-pen-square  hover-green" />
+                        </Link>
 
-                    <div onClick={deleteQuestion}>
-                        <i className="fas fa-trash hover-red"></i>
+                        <div onClick={deleteQuestion}>
+                            <i className="fas fa-trash hover-red"></i>
+                        </div>
                     </div>
-                </div>
+                )}
                 {questionNumber}. {data.question}
             </div>
             <div class="card-body row">{renderOption()}</div>

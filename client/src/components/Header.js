@@ -1,8 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
+import { fetchUser } from "actions";
+
 const Header = () => {
+    const dispatch = useDispatch();
+
+    useState(() => {
+        dispatch(fetchUser());
+    });
+
+    let auth = useSelector(state => state.auth);
+
+    const renderLogInName = () => {
+        if (auth) {
+            return <Link to="/login">Hi, {auth.name}</Link>;
+        } else {
+            return (
+                <li className="nav-item">
+                    <Link to="/login">
+                        <div className="nav-link">Log In for more feature</div>
+                    </Link>
+                </li>
+            );
+        }
+    };
+
     return (
         <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow justify-content-md-center justify-content-start">
             <div className="container">
@@ -17,13 +42,7 @@ const Header = () => {
                     id="collapsingNavbar2"
                 >
                     <ul className="navbar-nav mx-auto text-md-center text-left">
-                        <li className="nav-item">
-                            <Link to="/login">
-                                <div className="nav-link">
-                                    Log In for more feature
-                                </div>
-                            </Link>
-                        </li>
+                        {renderLogInName()}
                     </ul>
                     <ul className="nav navbar-nav flex-row justify-content-md-center justify-content-start flex-nowrap">
                         <li className="nav-item">

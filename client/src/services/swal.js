@@ -2,7 +2,8 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
 let MySwal = withReactContent(Swal);
-MySwal = MySwal.mixin({
+
+export const DefaultPopUp = MySwal.mixin({
     buttonsStyling: false,
     customClass: {
         confirmButton: "btn btn-primary mx-1",
@@ -11,4 +12,7 @@ MySwal = MySwal.mixin({
     showCancelButton: true
 });
 
-export default MySwal;
+export const AuthPopUp = DefaultPopUp.mixin({
+    type: "error",
+    title: "You are not authorize"
+});

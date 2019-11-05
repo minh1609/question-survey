@@ -6,6 +6,7 @@ import { fetchQuestions } from "../../actions";
 const Home = ({ history }) => {
     const dispatch = useDispatch();
     const questions = useSelector(state => state.questionsSets);
+    const auth = useSelector(state => state.auth);
 
     useEffect(() => {
         dispatch(fetchQuestions());
@@ -36,18 +37,20 @@ const Home = ({ history }) => {
 
     return (
         <div>
-            <button
-                className="btn btn-success shadow p-2 mb-5 "
-                onClick={() => {
-                    history.push("/create/questionset");
-                }}
-                style={{
-                    position: "fixed",
-                    bottom: "10px"
-                }}
-            >
-                Create your own Question Set
-            </button>
+            {auth && ( //only render button if user is log in
+                <button
+                    className="btn btn-success shadow p-2 mb-5 "
+                    onClick={() => {
+                        history.push("/create/questionset");
+                    }}
+                    style={{
+                        position: "fixed",
+                        bottom: "10px"
+                    }}
+                >
+                    Create your own Question Set
+                </button>
+            )}
 
             <div className="row">{renderQuestionList()}</div>
         </div>

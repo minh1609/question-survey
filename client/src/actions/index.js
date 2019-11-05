@@ -15,3 +15,8 @@ export const fetchQuestion = id => async (dispatch, getState) => {
 export const answer = (questionNumber, option) => {
     return { type: ANSWER, payload: { questionNumber, option } };
 };
+
+export const fetchUser = () => async (dispatch, getState) => {
+    const res = await axios.get("/api/user");
+    dispatch({ type: FETCH_USER, payload: res.data });
+};

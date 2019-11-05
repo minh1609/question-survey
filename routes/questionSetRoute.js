@@ -4,6 +4,8 @@ const QuestionSet = require("../models/QuestionSet");
 const User = require("../models/User");
 const Question = require("../models/Question");
 
+const requireLogIn = require("../middlewares/requireLogin");
+
 module.exports = (app = express()) => {
     //Get All question from server database
     app.get("/api/questionset", async (req, res) => {
@@ -24,12 +26,13 @@ module.exports = (app = express()) => {
     });
 
     //Add a new question set
-    app.post("/api/questionset", async (req, res) => {
+    app.post("/api/questionset", requireLogIn, async (req, res) => {
         let { name, description } = req.body;
 
         let newQuestionSet = new QuestionSet({
             name,
-            description
+            description,
+            owner: req.user.id
         });
 
         try {
