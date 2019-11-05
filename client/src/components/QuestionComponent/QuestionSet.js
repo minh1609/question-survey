@@ -107,13 +107,15 @@ const QuestionSet = props => {
                 >
                     Mark my score
                 </button>
-                <button
-                    style={{ float: "right" }}
-                    className="btn btn-danger shadow mr-2"
-                    onClick={deleteQuestionSet}
-                >
-                    Delete
-                </button>
+                {isAuthorized() && (
+                    <button
+                        style={{ float: "right" }}
+                        className="btn btn-danger shadow mr-2"
+                        onClick={deleteQuestionSet}
+                    >
+                        Delete
+                    </button>
+                )}
                 <h3 className="text-gray-800">{questionList.name}</h3>
                 <i> {questionList.description} </i>
             </div>

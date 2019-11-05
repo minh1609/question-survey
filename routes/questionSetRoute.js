@@ -1,4 +1,5 @@
 const express = require("express");
+const mongoose = require("mongoose");
 
 const QuestionSet = require("../models/QuestionSet");
 const User = require("../models/User");
@@ -53,6 +54,7 @@ module.exports = (app = express()) => {
     });
 
     //Add a new question to questioon set
+    //Change to transaction
     app.post("/api/questionset/:setid", async (req, res) => {
         let { question, option, answer } = req.body;
         console.log(answer);
@@ -88,16 +90,24 @@ module.exports = (app = express()) => {
 
         questionSet.questions = newQuestions;
 
-        Promise.all([
-            Question.findByIdAndDelete(req.params.questionId),
-            questionSet.save()
-        ])
-            .then(result => {
-                res.status(201).send(result);
-            })
-            .catch(err => {
-                res.status(400).send();
-            });
-        res.send();
+        const session = await mongoose.startSession();
+        session.startTransaction();
+        try {
+            const opts = { session };
+            const query1 = await Question.findByIdAndDelete(
+                req.params.questionId,
+                opts
+            );
+
+            const query2 = await questionSet.save(opts);
+
+            await session.commitTransaction();
+            res.status(201).send({ message: "Success" });
+            session.endSession();
+        } catch (error) {
+            await session.abortTransaction();
+            session.endSession();
+            res.status(400).send(error);
+        }
     });
 };
