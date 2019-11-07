@@ -16,3 +16,4 @@ Application help user to send survey, give a test by using multiple choice quest
 ### Demo
 
 https://question-survey.herokuapp.com/
+application could take 5 - 10 s to start due to speed limit of free Heroku service
