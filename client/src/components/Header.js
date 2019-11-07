@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
 import { fetchUser } from "actions";
+import axios from "axios";
 
 const Header = () => {
     const dispatch = useDispatch();
@@ -14,16 +14,20 @@ const Header = () => {
 
     let auth = useSelector(state => state.auth);
 
-    const renderLogInName = () => {
+    const renderDropDownMenu = () => {
         if (auth) {
-            return <Link to="/login">Hi, {auth.name}</Link>;
-        } else {
             return (
-                <li className="nav-item">
-                    <Link to="/login">
-                        <div className="nav-link">Log In for more feature</div>
+                <React.Fragment>
+                    <Link to="/user-record">
+                        <button className="dropdown-item" type="button">
+                            Your Profile
+                        </button>
                     </Link>
-                </li>
+                    <div className="dropdown-divider"></div>
+                    <a className="dropdown-item" href="/auth/logout">
+                        Log out
+                    </a>
+                </React.Fragment>
             );
         }
     };
@@ -42,7 +46,35 @@ const Header = () => {
                     id="collapsingNavbar2"
                 >
                     <ul className="navbar-nav mx-auto text-md-center text-left">
-                        {renderLogInName()}
+                        <li className="nav-item">
+                            {/* <Link to="/login">
+                        <div className="nav-link">Log In for more feature</div>
+                    </Link> */}
+
+                            <div className="dropdown">
+                                {auth ? (
+                                    <span
+                                        className="pointer"
+                                        id="headerDropdown"
+                                        data-toggle="dropdown"
+                                        aria-haspopup="true"
+                                        aria-expanded="false"
+                                    >
+                                        {auth.name}
+                                    </span>
+                                ) : (
+                                    <Link to="/login">
+                                        Log in for more feature
+                                    </Link>
+                                )}
+                                <div
+                                    className="dropdown-menu animated--grow-in"
+                                    aria-labelledby="headerDropdown"
+                                >
+                                    {renderDropDownMenu()}
+                                </div>
+                            </div>
+                        </li>
                     </ul>
                     <ul className="nav navbar-nav flex-row justify-content-md-center justify-content-start flex-nowrap">
                         <li className="nav-item">
@@ -55,12 +87,6 @@ const Header = () => {
                                 about
                             </a>
                         </li>
-
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/user-record">
-                                <i className="fas fa-user-alt"></i>
-                            </Link>
-                        </li>
                     </ul>
                 </div>
             </div>
@@ -68,14 +94,4 @@ const Header = () => {
     );
 };
 
-const mapStateToProps = state => ({
-    // auth: state.auth
-});
-
-//action creator
-const mapDispatchToProps = {};
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Header);
+export default Header;

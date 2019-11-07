@@ -1,13 +1,11 @@
 const mongoose = require("mongoose");
 
-const Question = require("./Question");
-
 const questionSetSchema = new mongoose.Schema({
     name: { type: String, required: true, default: "No Name" },
-    questions: [{ type: mongoose.Schema.Types.ObjectId, ref: "Question" }],
+    questions: [{ type: mongoose.Schema.Types.ObjectId, ref: "questions" }],
     description: { type: String, default: "No description" },
     answers: { type: Array },
-    owner: { type: mongoose.Schema.Types.ObjectId, ref: "User" }
+    owner: { type: mongoose.Schema.Types.ObjectId, ref: "users" }
 });
-const QuestionSet = mongoose.model("QuestionSet", questionSetSchema);
+const QuestionSet = mongoose.model("questionsets", questionSetSchema);
 module.exports = QuestionSet;

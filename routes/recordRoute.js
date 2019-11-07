@@ -13,7 +13,10 @@ module.exports = (app = express()) => {
         let { score, setId } = req.body;
 
         try {
-            let record = await Record.findOne({ user: userId });
+            let record = await Record.findOne({
+                user: userId,
+                questionSet: mongoose.Types.ObjectId(setId)
+            });
 
             if (!record) {
                 let newRecord = new Record({
@@ -42,7 +45,11 @@ module.exports = (app = express()) => {
 
     app.get("/api/user/record", async (req, res) => {
         try {
-            let result = await Record.find({ user: req.user.id });
+            let result = await Record.find({ user: req.user.id }).populate(
+                "questionSet",
+                "name"
+            );
+
             res.status(200).send(result);
         } catch (error) {
             res.status(400).send(error);

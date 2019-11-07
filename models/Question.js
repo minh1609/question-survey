@@ -5,5 +5,5 @@ const questionSchema = new mongoose.Schema({
     option: { type: Array, required: true },
     answer: { type: Number, required: true }
 });
-const Question = mongoose.model("Question", questionSchema);
+const Question = mongoose.model("questions", questionSchema);
 module.exports = Question;

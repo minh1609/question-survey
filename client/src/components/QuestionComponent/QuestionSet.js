@@ -58,15 +58,14 @@ const QuestionSet = props => {
                 score++;
             }
         }
+        let percentScore = (score / rightAnswer.length) * 100;
         DefaultPopUp.fire({
-            title: (
-                <h5>
-                    Your Score : {score}/{rightAnswer.length}{" "}
-                </h5>
-            ),
+            title: <h5>Your Score : percentScore </h5>,
             html: <ScoreBar score={score} totalQuestion={rightAnswer.length} />,
             showConfirmButton: false
         });
+
+        axios.post("/api/record", { score: percentScore, setId: id });
     };
 
     const addNewQuestion = async () => {
