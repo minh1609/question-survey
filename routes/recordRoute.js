@@ -8,30 +8,37 @@ const Record = require("../models/Record");
 
 module.exports = (app = express()) => {
     app.post("/api/record", async (req, res) => {
-        let userId = "5dc0ba1576614225fc6f4503";
+        let userId = req.user.id;
 
         let { score, setId } = req.body;
 
         try {
-            // let newRecord = new Record({
-            //     user: mongoose.Types.ObjectId(userId),
-            //     questionSet: mongoose.Types.ObjectId(setId)
-            // });
+            let record = await Record.findOne({ user: userId });
 
-            let newRecord = new Record({
-                user: mongoose.Types.ObjectId(userId),
-                questionSet: mongoose.Types.ObjectId(setId)
-            });
+            if (!record) {
+                let newRecord = new Record({
+                    user: userId,
+                    questionSet: mongoose.Types.ObjectId(setId),
+                    firstTimeScore: score,
+                    highestScore: score
+                });
 
-            let result = await newRecord.save();
-            res.send(result);
+                let result = await newRecord.save();
+                res.status(201).send(result);
+            } else {
+                if (record.highestScore < score) {
+                    record.highestScore = score;
+                    let result = await record.save();
+                    res.status(201).send(result);
+                } else {
+                    res.status(201).send();
+                }
+            }
         } catch (error) {
             console.log(error);
-            res.send(error);
+            res.status(400).send(error);
         }
     });
-
-    //
 
     app.get("/api/user/record", async (req, res) => {
         try {

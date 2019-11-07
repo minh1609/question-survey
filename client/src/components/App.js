@@ -8,6 +8,8 @@ import Home from "./QuestionComponent/Home";
 import CreateQuestionSet from "./QuestionComponent/CreateQuestionSet";
 import EditQuestion from "components/QuestionComponent/EditQuestion";
 import LogIn from "components/PageComponent/LoginPage";
+import UserRecord from "components/RecordComponent/UserRecord";
+import About from "components/PageComponent/About";
 
 import Header from "./Header";
 
@@ -34,6 +36,8 @@ const App = () => {
                         component={EditQuestion}
                     />
                     <Route exact path="/login" component={LogIn} />
+                    <Route exact path="/user-record" component={UserRecord} />
+                    <Route exact path="/about" component={About} />
                 </Switch>
             </div>
         </BrowserRouter>

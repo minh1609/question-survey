@@ -98,7 +98,11 @@ const QuestionSet = props => {
         <div>
             <div
                 className="mb-2 sticky-top p-3 shadow mb-3"
-                style={{ backgroundColor: "white", borderRadius: "3px" }}
+                style={{
+                    backgroundColor: "white",
+                    borderRadius: "4px",
+                    minWidth: "200px"
+                }}
             >
                 <button
                     className="mx-auto btn btn-info float mb-4 shadow"

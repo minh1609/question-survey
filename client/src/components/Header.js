@@ -48,23 +48,18 @@ const Header = () => {
                         <li className="nav-item">
                             <a
                                 className="nav-link"
-                                href="https://github.com/minh1609/question-survey"
+                                href="/about"
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
-                                <i className="fab fa-github"></i>
+                                about
                             </a>
                         </li>
 
                         <li className="nav-item">
-                            <a
-                                className="nav-link"
-                                href="https://minh1609.github.io/portfolio/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
+                            <Link className="nav-link" to="/user-record">
                                 <i className="fas fa-user-alt"></i>
-                            </a>
+                            </Link>
                         </li>
                     </ul>
                 </div>
