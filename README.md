@@ -7,7 +7,8 @@ Application help user to send survey, give a test by using multiple choice quest
 -   [x] CRUD operation for every question, question set
 -   [x] Deployment
 -   [x] Authentication and User Role
--   [ ] High Score, Record for user, test
+-   [x] High Score, Record for user, test
+-   [ ] Private, public state for Test
 -   [ ] Sharing Question by link, QR code
 -   [ ] Image Upload
 -   ...

@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { DefaultPopUp } from "services/swal";
 
 import { answer, fetchQuestion } from "../../actions";
+import convertNumber from "function/convertNumberToStr";
 
 //data: {option, _id, question, owner}
 //questionNumber: order of question in QuestionSet array
@@ -14,11 +15,6 @@ import { answer, fetchQuestion } from "../../actions";
 const Question = ({ data, questionNumber, setId, isAuthorized }) => {
     const dispatch = useDispatch();
     let selectedAnswer = useSelector(state => state.userAnswer[questionNumber]);
-
-    const convertNumber = n => {
-        if (n === undefined) return "...";
-        return String.fromCharCode(n + 65);
-    };
 
     const submitAnswer = (questionNumber, option) => {
         dispatch(answer(questionNumber, option));
@@ -71,7 +67,13 @@ const Question = ({ data, questionNumber, setId, isAuthorized }) => {
 
     return (
         <div class="card shadow mb-4 border-bottom-secondary">
-            <div class="card-header">
+            {/* This span is used to trick the browser go 100px above where it suppose to go  */}
+            <span
+                id={`question${questionNumber}`}
+                style={{ position: "absolute", top: "-100px" }}
+            ></span>
+
+            <div className="card-header">
                 {/* Edit and Delete button is rendered only for Authorized user*/}
                 {isAuthorized && (
                     <div style={{ float: "right" }} className="pointer icon">
@@ -89,7 +91,7 @@ const Question = ({ data, questionNumber, setId, isAuthorized }) => {
                 )}
                 {questionNumber}. {data.question}
             </div>
-            <div class="card-body row">{renderOption()}</div>
+            <div className="card-body row">{renderOption()}</div>
         </div>
     );
 };

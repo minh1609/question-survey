@@ -26,8 +26,8 @@ const UserRecord = () => {
                             </Link>
                             {e.questionSet.name}
                         </td>
-                        <td>{e.highestScore}</td>
                         <td>{e.firstTimeScore}</td>
+                        <td>{e.highestScore}</td>
                     </tr>
                 );
             });

@@ -9,7 +9,8 @@ import { Link } from "react-router-dom";
 
 import Question from "./Question";
 import { fetchQuestion } from "actions";
-import ScoreBar from "components/FormComponent/ScoreBar";
+import ScoreBar from "components/UtilitiesComponent/ScoreBar";
+import QuestionTrack from "components/UtilitiesComponent/QuestionTrack";
 
 const QuestionSet = props => {
     const dispatch = useDispatch();
@@ -99,9 +100,9 @@ const QuestionSet = props => {
     const renderDropdownMenu = () => {
         if (isAuthorized()) {
             return (
-                <span className="dropdown">
+                <span className="dropdown" style={{ zIndex: "3000" }}>
                     <i
-                        className="fas fa-sort-down fa-xs text-gray-600"
+                        className="fas fa-bars fa-xs text-gray-600 pointer"
                         id="dropDownQuestionSet"
                         data-toggle="dropdown"
                         aria-haspopup="true"
@@ -137,7 +138,7 @@ const QuestionSet = props => {
         <div>
             {/* MENU BOX */}
             <div
-                className="mb-2 sticky-top p-3 shadow mb-3 row border-bottom-primary
+                className="mb-2 p-3 shadow mb-3 row border-bottom-primary
                 "
                 style={{
                     backgroundColor: "white",
@@ -153,14 +154,19 @@ const QuestionSet = props => {
                     <p> {questionList.description} </p>
                 </div>
 
+                <div className="col-2 p-2"></div>
+            </div>
+            {/* END MENU BOX */}
+
+            <QuestionTrack>
                 <button
-                    className=" btn btn-danger  mb-4 shadow col-2"
+                    className=" btn btn-danger m-1 shadow "
                     onClick={marking}
                 >
                     Mark
                 </button>
-            </div>
-            {/* END MENU BOX */}
+            </QuestionTrack>
+
             {renderEachQuestion()}
 
             {/*Form to add new question to set */}
