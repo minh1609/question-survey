@@ -6,7 +6,9 @@ const LogIn = () => {
                 <h1 className="h4 text-gray-900 mb-4">Welcome Back!</h1>
             </div>
             <form className="user">
-                <div className="m-3">Log in to create your own test</div>
+                <div className="m-3">
+                    Log in to create your own test, keep your record
+                </div>
                 <a
                     href="/auth/google"
                     className="btn btn-google btn-user btn-block"

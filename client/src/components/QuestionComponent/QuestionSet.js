@@ -5,6 +5,7 @@ import axios from "axios";
 import QuestionForm from "../FormComponent/QuestionForm";
 import { reset } from "redux-form";
 import { DefaultPopUp } from "services/swal";
+import { Link } from "react-router-dom";
 
 import Question from "./Question";
 import { fetchQuestion } from "actions";
@@ -25,6 +26,7 @@ const QuestionSet = props => {
         dispatch({ type: "CLEAR_ANSWER" });
     }, []);
 
+    //is user the owner of this question set ???
     const isAuthorized = () => {
         if (auth && auth._id.localeCompare(questionList.owner) === 0) {
             return true;
@@ -60,7 +62,7 @@ const QuestionSet = props => {
         }
         let percentScore = (score / rightAnswer.length) * 100;
         DefaultPopUp.fire({
-            title: <h5>Your Score : percentScore </h5>,
+            title: <h5>Your Score : </h5>,
             html: <ScoreBar score={score} totalQuestion={rightAnswer.length} />,
             showConfirmButton: false
         });
@@ -93,51 +95,109 @@ const QuestionSet = props => {
         );
     };
 
+    //only appear for authorized user
+    const renderDropdownMenu = () => {
+        if (isAuthorized()) {
+            return (
+                <span className="dropdown">
+                    <i
+                        className="fas fa-sort-down fa-xs text-gray-600"
+                        id="dropDownQuestionSet"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                    ></i>
+
+                    <div
+                        className="dropdown-menu"
+                        aria-labelledby="dropdownMenuButton"
+                    >
+                        <Link to={`/test-record/${id}`}>
+                            <button className="dropdown-item" type="button">
+                                <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Record
+                            </button>
+                        </Link>
+                        <div className="dropdown-divider"></div>
+                        <button
+                            className="dropdown-item"
+                            type="button"
+                            onClick={deleteQuestionSet}
+                        >
+                            <i className="fas fa-trash fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Delete
+                        </button>
+                    </div>
+                </span>
+            );
+        }
+    };
+
     return (
         <div>
+            {/* MENU BOX */}
             <div
-                className="mb-2 sticky-top p-3 shadow mb-3"
+                className="mb-2 sticky-top p-3 shadow mb-3 row border-bottom-primary
+                "
                 style={{
                     backgroundColor: "white",
                     borderRadius: "4px",
                     minWidth: "200px"
                 }}
             >
+                <div className="col-10">
+                    <h3 className="text-gray-800">
+                        {questionList.name} {renderDropdownMenu()}
+                    </h3>
+
+                    <p> {questionList.description} </p>
+                </div>
+
                 <button
-                    className="mx-auto btn btn-info float mb-4 shadow"
+                    className=" btn btn-info  mb-4 shadow col-2"
                     onClick={marking}
-                    style={{ float: "right" }}
                 >
-                    Mark my score
+                    Mark
                 </button>
-                {isAuthorized() && (
-                    <button
-                        style={{ float: "right" }}
-                        className="btn btn-danger shadow mr-2"
-                        onClick={deleteQuestionSet}
-                    >
-                        Delete
-                    </button>
-                )}
-                <h3 className="text-gray-800">{questionList.name}</h3>
-                <i> {questionList.description} </i>
             </div>
+            {/* END MENU BOX */}
             {renderEachQuestion()}
 
             {/*Form to add new question to set */}
             {isAuthorized() && (
-                <React.Fragment>
-                    <h4>Add new question to this set</h4>
-                    <QuestionForm
-                        initialValues={{ question: "", option: "", answer: "" }}
-                    />
-                    <button
-                        className="btn btn-success shadow my-2"
-                        onClick={addNewQuestion}
+                <div className="card shadow my-4">
+                    <a
+                        href="#collapseCard"
+                        className="d-block card-header py-3"
+                        data-toggle="collapse"
+                        role="button"
+                        aria-expanded="true"
+                        aria-controls="collapseCardExample"
+                        style={{ backgroundColor: "#1cc88a" }}
                     >
-                        Add
-                    </button>
-                </React.Fragment>
+                        <h6 className="m-0 font-weight-bold text-gray-100">
+                            Add new question to this set
+                        </h6>
+                    </a>
+
+                    <div className="collapse" id="collapseCard">
+                        <div className="card-body">
+                            <QuestionForm
+                                initialValues={{
+                                    question: "",
+                                    option: "",
+                                    answer: ""
+                                }}
+                            />
+                            <button
+                                className="btn btn-success shadow my-2"
+                                onClick={addNewQuestion}
+                            >
+                                Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
             )}
         </div>
     );

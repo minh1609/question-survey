@@ -35,13 +35,13 @@ passport.use(
 
             //check if user already sign up or not
             const foundUser = await User.findOne({ googleId: profile.id });
-
             if (foundUser) {
                 done(null, foundUser);
             } else {
                 const user = await new User({
                     googleId: profile.id,
-                    name: profile.displayName
+                    name: profile.displayName,
+                    email: profile.emails[0].value
                 }).save();
                 done(null, user);
             }

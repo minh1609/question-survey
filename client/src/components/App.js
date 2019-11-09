@@ -10,6 +10,8 @@ import EditQuestion from "components/QuestionComponent/EditQuestion";
 import LogIn from "components/PageComponent/LoginPage";
 import UserRecord from "components/RecordComponent/UserRecord";
 import About from "components/PageComponent/About";
+import TestRecord from "components/RecordComponent/TestRecord";
+import Footer from "components/Footer";
 
 import Header from "./Header";
 
@@ -17,6 +19,7 @@ const App = () => {
     return (
         <BrowserRouter>
             <Header />
+
             <div className="container">
                 <Switch>
                     <Route exact path="/" component={Home} />
@@ -38,6 +41,11 @@ const App = () => {
                     <Route exact path="/login" component={LogIn} />
                     <Route exact path="/user-record" component={UserRecord} />
                     <Route exact path="/about" component={About} />
+                    <Route
+                        exact
+                        path="/test-record/:id"
+                        component={TestRecord}
+                    />
                 </Switch>
             </div>
         </BrowserRouter>

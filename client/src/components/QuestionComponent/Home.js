@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Footer from "components/Footer";
 
 import { fetchQuestions } from "../../actions";
 
@@ -43,16 +44,12 @@ const Home = ({ history }) => {
                     onClick={() => {
                         history.push("/create/questionset");
                     }}
-                    style={{
-                        position: "fixed",
-                        bottom: "10px"
-                    }}
                 >
                     Create your own Question Set
                 </button>
             )}
-
             <div className="row">{renderQuestionList()}</div>
+            <Footer />
         </div>
     );
 };

@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import { fetchUser } from "actions";
-import axios from "axios";
 
 const Header = () => {
     const dispatch = useDispatch();
@@ -20,11 +19,13 @@ const Header = () => {
                 <React.Fragment>
                     <Link to="/user-record">
                         <button className="dropdown-item" type="button">
+                            <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                             Your Profile
                         </button>
                     </Link>
                     <div className="dropdown-divider"></div>
                     <a className="dropdown-item" href="/auth/logout">
+                        <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400" />
                         Log out
                     </a>
                 </React.Fragment>
@@ -46,11 +47,10 @@ const Header = () => {
                     id="collapsingNavbar2"
                 >
                     <ul className="navbar-nav mx-auto text-md-center text-left">
+                        <li className="nav-item">{/* Middle Section  */}</li>
+                    </ul>
+                    <ul className="nav navbar-nav flex-row justify-content-md-center justify-content-start flex-nowrap">
                         <li className="nav-item">
-                            {/* <Link to="/login">
-                        <div className="nav-link">Log In for more feature</div>
-                    </Link> */}
-
                             <div className="dropdown">
                                 {auth ? (
                                     <span
@@ -60,7 +60,8 @@ const Header = () => {
                                         aria-haspopup="true"
                                         aria-expanded="false"
                                     >
-                                        {auth.name}
+                                        {auth.name}{" "}
+                                        <i class="fas fa-bars fa-xs"></i>
                                     </span>
                                 ) : (
                                     <Link to="/login">
@@ -70,22 +71,11 @@ const Header = () => {
                                 <div
                                     className="dropdown-menu animated--grow-in"
                                     aria-labelledby="headerDropdown"
+                                    style={{ zIndex: "2000" }}
                                 >
                                     {renderDropDownMenu()}
                                 </div>
                             </div>
-                        </li>
-                    </ul>
-                    <ul className="nav navbar-nav flex-row justify-content-md-center justify-content-start flex-nowrap">
-                        <li className="nav-item">
-                            <a
-                                className="nav-link"
-                                href="/about"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                about
-                            </a>
                         </li>
                     </ul>
                 </div>

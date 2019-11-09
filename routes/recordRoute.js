@@ -56,9 +56,11 @@ module.exports = (app = express()) => {
         }
     });
 
-    app.get("/api/set/record/:setId", async (req, res) => {
+    app.get("/api/test/record/:setId", async (req, res) => {
         try {
-            let result = await Record.find({ questionSet: req.params.setId });
+            let result = await Record.find({
+                questionSet: req.params.setId
+            }).populate("user");
             res.status(200).send(result);
         } catch (error) {
             res.status(400).send(error);
