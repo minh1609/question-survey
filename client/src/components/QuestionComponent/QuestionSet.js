@@ -154,7 +154,7 @@ const QuestionSet = props => {
                 </div>
 
                 <button
-                    className=" btn btn-info  mb-4 shadow col-2"
+                    className=" btn btn-danger  mb-4 shadow col-2"
                     onClick={marking}
                 >
                     Mark

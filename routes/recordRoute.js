@@ -6,8 +6,10 @@ const User = require("../models/User");
 const Question = require("../models/Question");
 const Record = require("../models/Record");
 
+const requireLogin = require("../middlewares/requireLogin");
+
 module.exports = (app = express()) => {
-    app.post("/api/record", async (req, res) => {
+    app.post("/api/record", requireLogin, async (req, res) => {
         let userId = req.user.id;
 
         let { score, setId } = req.body;

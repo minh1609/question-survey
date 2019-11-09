@@ -13,7 +13,7 @@ import { answer, fetchQuestion } from "../../actions";
 
 const Question = ({ data, questionNumber, setId, isAuthorized }) => {
     const dispatch = useDispatch();
-    let userAnswer = useSelector(state => state.userAnswer);
+    let selectedAnswer = useSelector(state => state.userAnswer[questionNumber]);
 
     const convertNumber = n => {
         if (n === undefined) return "...";
@@ -40,18 +40,26 @@ const Question = ({ data, questionNumber, setId, isAuthorized }) => {
         });
     };
 
+    const renderOptionColor = optionIndex => {
+        if (optionIndex === selectedAnswer)
+            return " bg-info text-gray-100 font-weight-bold";
+        else {
+            return "";
+        }
+    };
+
     const renderOption = () => {
         return data.option.map((e, index) => (
             <div
-                class="col-xl-3 col-md-6 mb-2"
+                className="col-xl-3 col-md-6 mb-2"
                 onClick={() => submitAnswer(questionNumber, index)}
                 style={{ cursor: "pointer" }}
                 key={index}
             >
-                <div class="card">
-                    <div class="card-body" style={{ padding: "10px" }}>
-                        <div class="row no-gutters align-items-center">
-                            <div class="col ">
+                <div className={"card" + renderOptionColor(index)}>
+                    <div className="card-body" style={{ padding: "10px" }}>
+                        <div className="row no-gutters align-items-center">
+                            <div className="col ">
                                 {convertNumber(index)}. {e}
                             </div>
                         </div>
@@ -64,6 +72,7 @@ const Question = ({ data, questionNumber, setId, isAuthorized }) => {
     return (
         <div class="card shadow mb-4 border-bottom-secondary">
             <div class="card-header">
+                {/* Edit and Delete button is rendered only for Authorized user*/}
                 {isAuthorized && (
                     <div style={{ float: "right" }} className="pointer icon">
                         <Link
@@ -81,10 +90,6 @@ const Question = ({ data, questionNumber, setId, isAuthorized }) => {
                 {questionNumber}. {data.question}
             </div>
             <div class="card-body row">{renderOption()}</div>
-            <div className="mb-2 ml-3">
-                Your Answer is{" "}
-                <strong> {convertNumber(userAnswer[questionNumber])}</strong>
-            </div>
         </div>
     );
 };
