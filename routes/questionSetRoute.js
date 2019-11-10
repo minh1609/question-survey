@@ -8,13 +8,25 @@ const Question = require("../models/Question");
 const requireLogIn = require("../middlewares/requireLogin");
 
 module.exports = (app = express()) => {
-    //Get All question from server database
+    //Get  question set from server database
     app.get("/api/questionset", async (req, res) => {
-        const data = await QuestionSet.find({}).populate("questions");
-        res.status(200).send(data);
+        let query = QuestionSet.find({});
+
+        if (req.query.name) {
+            //text search on more than 1 field
+            query = QuestionSet.find({
+                $text: { $search: `/${req.query.name}/i` }
+            });
+        }
+        try {
+            const data = await query;
+            res.status(200).send(data);
+        } catch (error) {
+            res.status(400).send(error);
+        }
     });
 
-    //Get specific question set by id
+    //Get specific question set set by id
     app.get("/api/questionset/:id", async (req, res) => {
         try {
             const data = await QuestionSet.findById(req.params.id).populate(
@@ -54,7 +66,7 @@ module.exports = (app = express()) => {
     });
 
     //Add a new question to questioon set
-    //Change to transaction
+    //TODO: Change to transaction
     app.post("/api/questionset/:setid", async (req, res) => {
         let { question, option, answer } = req.body;
         console.log(answer);

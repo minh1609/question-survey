@@ -8,6 +8,7 @@ Application help user to send survey, give a test by using multiple choice quest
 -   [x] Deployment
 -   [x] Authentication and User Role
 -   [x] High Score, Record for user, test
+-   [ ] Pagination
 -   [ ] Private, public state for Test
 -   [ ] Sharing Question by link, QR code
 -   [ ] Image Upload

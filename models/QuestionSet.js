@@ -9,5 +9,7 @@ const questionSetSchema = new mongoose.Schema({
 });
 
 questionSetSchema.index({ owner: 1 });
+questionSetSchema.index({ name: "text", description: "text" });
+
 const QuestionSet = mongoose.model("questionsets", questionSetSchema);
 module.exports = QuestionSet;
