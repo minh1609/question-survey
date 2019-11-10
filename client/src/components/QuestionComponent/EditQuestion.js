@@ -39,8 +39,16 @@ const EditQuestion = ({ match, history }) => {
         <div>
             <h4>Edit question</h4>
             <QuestionForm />
-            <button className="btn btn-primary my-3" onClick={handleClick}>
+            <button className="btn btn-primary my-3 mr-3" onClick={handleClick}>
                 Submit Change
+            </button>
+            <button
+                className="btn btn-secondary"
+                onClick={() => {
+                    history.goBack();
+                }}
+            >
+                Go back
             </button>
         </div>
     );

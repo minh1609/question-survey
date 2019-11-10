@@ -68,7 +68,9 @@ const QuestionSet = props => {
             showConfirmButton: false
         });
 
-        axios.post("/api/record", { score: percentScore, setId: id });
+        if (auth) {
+            axios.post("/api/record", { score: percentScore, setId: id });
+        }
     };
 
     const addNewQuestion = async () => {

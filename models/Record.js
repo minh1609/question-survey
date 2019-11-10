@@ -10,8 +10,8 @@ const recordSchema = new mongoose.Schema({
     firstTimeScore: { type: Number }
 });
 
-// recordSchema.index({ user: 1 });
-// recordSchema.index({ questionSet: 1 });
+recordSchema.index({ user: 1 });
+recordSchema.index({ questionSet: 1 });
 
 const Record = mongoose.model("records", recordSchema);
 module.exports = Record;

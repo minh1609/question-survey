@@ -7,5 +7,7 @@ const questionSetSchema = new mongoose.Schema({
     answers: { type: Array },
     owner: { type: mongoose.Schema.Types.ObjectId, ref: "users" }
 });
+
+questionSetSchema.index({ owner: 1 });
 const QuestionSet = mongoose.model("questionsets", questionSetSchema);
 module.exports = QuestionSet;

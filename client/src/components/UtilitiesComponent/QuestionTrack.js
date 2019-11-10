@@ -37,7 +37,7 @@ const QuestionTrack = ({ children }) => {
     };
 
     return (
-        <div className="rounded shadow my-3 p-3 sticky-top">
+        <div className="rounded shadow my-3 p-3 sticky-top bg-white">
             {renderList()}
             {children}
         </div>

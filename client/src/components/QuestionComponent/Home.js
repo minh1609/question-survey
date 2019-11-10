@@ -45,7 +45,7 @@ const Home = ({ history }) => {
                         history.push("/create/questionset");
                     }}
                 >
-                    Create your own Question Set
+                    Build your own Test
                 </button>
             )}
             <div className="row">{renderQuestionList()}</div>
