@@ -11,8 +11,7 @@ import LogIn from "components/PageComponent/LoginPage";
 import UserRecord from "components/RecordComponent/UserRecord";
 import About from "components/PageComponent/About";
 import TestRecord from "components/RecordComponent/TestRecord";
-import Footer from "components/Footer";
-
+import EditQuestionSet from "components/QuestionComponent/EditQuestionSet";
 import Header from "./Header";
 
 const App = () => {
@@ -32,6 +31,11 @@ const App = () => {
                         exact
                         path="/create/questionset"
                         component={CreateQuestionSet}
+                    />
+                    <Route
+                        exact
+                        path="/edit/questionset/:id"
+                        component={EditQuestionSet}
                     />
                     <Route
                         exact

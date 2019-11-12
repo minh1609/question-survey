@@ -15,7 +15,6 @@ const EditQuestion = ({ match, history }) => {
         let question = data.data;
         dispatch(change("Question", "question", question.question));
         dispatch(change("Question", "answer", question.answer));
-
         dispatch(change("Question", "option", question.option.join("||")));
     };
 

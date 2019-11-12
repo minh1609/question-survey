@@ -1,7 +1,7 @@
 import React from "react";
 import { Field, reduxForm } from "redux-form";
 
-let MetaInfoForm = props => {
+let Form = props => {
     return (
         <div>
             <label>Name</label>
@@ -26,8 +26,8 @@ let MetaInfoForm = props => {
     );
 };
 
-MetaInfoForm = reduxForm({
+Form = reduxForm({
     form: "QuestionSetMetaInfo"
-})(MetaInfoForm);
+})(Form);
 
-export default MetaInfoForm;
+export default Form;
