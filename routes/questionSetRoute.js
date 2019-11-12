@@ -43,7 +43,7 @@ module.exports = (app = express()) => {
       let result = await QuestionSet.findByIdAndUpdate(req.params.id, {
         $set: req.body
       });
-      res.send(result);
+      res.status(201).send(result);
     } catch (error) {
       res.send(error);
     }

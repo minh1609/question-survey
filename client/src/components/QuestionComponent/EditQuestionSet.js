@@ -38,7 +38,7 @@ const EditQuestionSet = ({ match, history }) => {
 
   const handleClick = async () => {
     let { name, description } = form.values;
-    let result = await axios.put(`/api/questionset/${id}`, {
+    let result = await axios.patch(`/api/questionset/${id}`, {
       name,
       description
     });
