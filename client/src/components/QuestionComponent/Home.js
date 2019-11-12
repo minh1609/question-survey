@@ -21,7 +21,7 @@ const Home = ({ history }) => {
   const renderQuestionList = () => {
     return questions.map(e => (
       <div key={e._id} className="col-sm-12 col-lg-6">
-        <div className="card shadow mb-4">
+        <div className="card shadow mb-4" style={{ whiteSpace: "pre-wrap" }}>
           <div
             className="card-header py-3"
             style={{ cursor: "pointer" }}
