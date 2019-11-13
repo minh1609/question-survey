@@ -50,8 +50,8 @@ const Home = ({ history }) => {
       )}
       <br />
       <i className="my-1">Sample Test</i>
+
       <div className="row">{renderQuestionList()}</div>
-      <Footer />
     </div>
   );
 };

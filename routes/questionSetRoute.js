@@ -19,7 +19,7 @@ module.exports = (app = express()) => {
       });
     }
     try {
-      const data = await query;
+      const data = await query.populate("owner", "email");
       res.status(200).send(data);
     } catch (error) {
       res.status(400).send(error);
@@ -29,9 +29,9 @@ module.exports = (app = express()) => {
   //Get specific question set set by id
   app.get("/api/questionset/:id", async (req, res) => {
     try {
-      const data = await QuestionSet.findById(req.params.id).populate(
-        "questions"
-      );
+      const data = await QuestionSet.findById(req.params.id)
+        .populate("questions")
+        .populate("owner", "email");
       res.status(200).send(data);
     } catch (error) {
       res.send(error);

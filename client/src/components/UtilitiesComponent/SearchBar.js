@@ -8,6 +8,9 @@ const SearchBar = () => {
   const [isLoading, setLoading] = useState(false);
 
   const handleChange = e => {
+    if (e.target.value === "") {
+      setSearchResult([]);
+    }
     setFormValue(e.target.value);
   };
 
