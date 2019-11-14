@@ -29,7 +29,11 @@ const QuestionSet = props => {
 
   //is user the owner of this question set ???
   const isAuthorized = () => {
-    if (auth && auth._id.localeCompare(questionList.owner) === 0) {
+    if (
+      auth &&
+      questionList.owner &&
+      auth._id.localeCompare(questionList.owner._id) === 0
+    ) {
       return true;
     } else {
       return false;
