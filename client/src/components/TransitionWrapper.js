@@ -9,7 +9,7 @@ let TransitionWrapper = ({ children, location }) => {
       <TransitionGroup className="transition-group">
         <CSSTransition
           key={location.key}
-          timeout={{ enter: 500, exit: 500 }}
+          timeout={{ enter: 1000, exit: 1000 }}
           classNames="fade"
         >
           <section className="route-section">
