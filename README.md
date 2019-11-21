@@ -13,6 +13,7 @@ Application help user to build a test by using multiple choice question
 -   [ ] Pagination
 -   [ ] Sharing Question by link, QR code
 -   [ ] Image Upload
+-   [ ] Unit test, CI, CD
 -   ...
 -   [ ] Polishing UX, UI
 

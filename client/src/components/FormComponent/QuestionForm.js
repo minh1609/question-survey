@@ -34,7 +34,8 @@ let QuestionForm = props => {
 };
 
 QuestionForm = reduxForm({
-    form: "Question"
+    form: "Question",
+    destroyOnUnmount: false
 })(QuestionForm);
 
 export default QuestionForm;
