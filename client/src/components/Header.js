@@ -63,7 +63,7 @@ const Header = () => {
                                         aria-expanded="false"
                                     >
                                         {auth.name}{" "}
-                                        <i class="fas fa-bars fa-xs"></i>
+                                        <i className="fas fa-bars fa-xs"></i>
                                     </span>
                                 ) : (
                                     <Link to="/login">

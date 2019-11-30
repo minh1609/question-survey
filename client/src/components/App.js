@@ -13,37 +13,51 @@ import About from "components/PageComponent/About";
 import TestRecord from "components/RecordComponent/TestRecord";
 import EditQuestionSet from "components/QuestionComponent/EditQuestionSet";
 import Header from "./Header";
-import Footer from "components/Footer";
+import Test from "components/TestComponent";
+
 import TransitionWrapper from "components/TransitionWrapper";
 
 const App = () => {
-  return (
-    <BrowserRouter>
-      <Header />
+    return (
+        <BrowserRouter>
+            <Header />
 
-      <div className="container">
-        <TransitionWrapper>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/questionset/:id" component={QuestionSet} />
-          <Route
-            exact
-            path="/create/questionset"
-            component={CreateQuestionSet}
-          />
-          <Route
-            exact
-            path="/edit/questionset/:id"
-            component={EditQuestionSet}
-          />
-          <Route exact path="/edit/question/:id" component={EditQuestion} />
-          <Route exact path="/login" component={LogIn} />
-          <Route exact path="/user-record" component={UserRecord} />
-          <Route exact path="/about" component={About} />
-          <Route exact path="/test-record/:id" component={TestRecord} />
-        </TransitionWrapper>
-      </div>
-    </BrowserRouter>
-  );
+            <div className="container">
+                <TransitionWrapper>
+                    <Route exact path="/" component={Home} />
+                    <Route
+                        exact
+                        path="/questionset/:id"
+                        component={QuestionSet}
+                    />
+                    <Route
+                        exact
+                        path="/create/questionset"
+                        component={CreateQuestionSet}
+                    />
+                    <Route
+                        exact
+                        path="/edit/questionset/:id"
+                        component={EditQuestionSet}
+                    />
+                    <Route
+                        exact
+                        path="/edit/question/:id"
+                        component={EditQuestion}
+                    />
+                    <Route exact path="/login" component={LogIn} />
+                    <Route exact path="/user-record" component={UserRecord} />
+                    <Route exact path="/about" component={About} />
+                    <Route exact path="/test" component={Test} />
+                    <Route
+                        exact
+                        path="/test-record/:id"
+                        component={TestRecord}
+                    />
+                </TransitionWrapper>
+            </div>
+        </BrowserRouter>
+    );
 };
 
 export default App;
