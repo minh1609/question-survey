@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 const UserRecord = () => {
     const [record, setRecord] = useState([]);
     const [test, setTest] = useState([]); //list of test created by user
-    let auth = useSelector(state => state.auth);
+    let auth = useSelector((state) => state.auth);
 
     const fetchData = async () => {
         let result = await axios.get("/api/user/record");
@@ -22,7 +22,7 @@ const UserRecord = () => {
     }, []);
 
     const renderRecordList = () => {
-        return record.map(e => {
+        return record.map((e) => {
             try {
                 return (
                     <tr key={e.questionSet._id}>
@@ -43,7 +43,7 @@ const UserRecord = () => {
     };
 
     const renderTestList = () => {
-        return test.map(e => {
+        return test.map((e) => {
             try {
                 return (
                     <tr key={e._id}>
@@ -78,7 +78,7 @@ const UserRecord = () => {
             <table className="table my-3 table-hover">
                 <thead className="thead-dark">
                     <tr>
-                        <th scope="col">Test Name</th>
+                        <th scope="col">Quiz Name</th>
                         <th scope="col">First time score</th>
                         <th scope="col">Highest Score</th>
                     </tr>
@@ -86,11 +86,11 @@ const UserRecord = () => {
                 <tbody>{renderRecordList()}</tbody>
             </table>
 
-            <h4>Question set created by you</h4>
+            <h4>Quiz created by you</h4>
             <table className="table my-3 table-hover">
                 <thead className="thead-dark">
                     <tr>
-                        <th scope="col">Test Name</th>
+                        <th scope="col">Quiz Name</th>
                         <th scope="col">Description</th>
                         <th scope="col"></th>
                     </tr>
