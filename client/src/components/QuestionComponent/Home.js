@@ -7,19 +7,19 @@ import { fetchQuestions } from "../../actions";
 
 const Home = ({ history }) => {
     const dispatch = useDispatch();
-    const questions = useSelector(state => state.questionsSets);
-    const auth = useSelector(state => state.auth);
+    const questions = useSelector((state) => state.questionsSets);
+    const auth = useSelector((state) => state.auth);
 
     useEffect(() => {
         dispatch(fetchQuestions());
     }, []);
 
-    const redirect = id => {
+    const redirect = (id) => {
         history.push(`/questionset/${id}`);
     };
 
     const renderQuestionList = () => {
-        return questions.map(e => (
+        return questions.map((e) => (
             <div key={e._id} className="col-sm-12 col-lg-6">
                 <div
                     className="card shadow mb-4"
@@ -50,11 +50,11 @@ const Home = ({ history }) => {
                         history.push("/create/questionset");
                     }}
                 >
-                    Build your own Test
+                    Build your own Quiz
                 </button>
             )}
             <br />
-            <i className="my-1">Sample Test</i>
+            <i className="my-1">Sample Quiz</i>
 
             <div className="row" style={{ marginBottom: "80px" }}>
                 {renderQuestionList()}

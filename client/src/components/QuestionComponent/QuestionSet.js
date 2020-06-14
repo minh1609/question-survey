@@ -12,12 +12,12 @@ import { fetchQuestion } from "actions";
 import ScoreBar from "components/UtilitiesComponent/ScoreBar";
 import AnswerTracking from "components/UtilitiesComponent/AnswerTracking";
 
-const QuestionSet = props => {
+const QuestionSet = (props) => {
     const dispatch = useDispatch();
-    let questionList = useSelector(state => state.currentQuestionSet);
-    let userAnswer = useSelector(state => state.userAnswer) || [];
-    let form = useSelector(state => state.form.Question);
-    let auth = useSelector(state => state.auth);
+    let questionList = useSelector((state) => state.currentQuestionSet);
+    let userAnswer = useSelector((state) => state.userAnswer) || [];
+    let form = useSelector((state) => state.form.Question);
+    let auth = useSelector((state) => state.auth);
 
     let id = props.match.params.id; //question set ID
     let history = props.history;
@@ -58,7 +58,7 @@ const QuestionSet = props => {
 
     const marking = () => {
         let score = 0;
-        let rightAnswer = questionList.questions.map(e => e.answer) || [];
+        let rightAnswer = questionList.questions.map((e) => e.answer) || [];
 
         for (let i = 0; i < userAnswer.length; i++) {
             if (userAnswer[i] === rightAnswer[i]) {
@@ -69,7 +69,7 @@ const QuestionSet = props => {
         DefaultPopUp.fire({
             title: <h5>Your Score : </h5>,
             html: <ScoreBar score={score} totalQuestion={rightAnswer.length} />,
-            showConfirmButton: false
+            showConfirmButton: false,
         });
 
         if (auth) {
@@ -82,7 +82,7 @@ const QuestionSet = props => {
         await axios.post(`/api/questionset/${id}`, {
             question,
             option,
-            answer
+            answer,
         });
         dispatch(fetchQuestion(id));
         dispatch(reset("Question"));
@@ -157,7 +157,7 @@ const QuestionSet = props => {
                 style={{
                     backgroundColor: "white",
                     borderRadius: "4px",
-                    minWidth: "200px"
+                    minWidth: "200px",
                 }}
             >
                 <div className="col-10">
@@ -196,7 +196,7 @@ const QuestionSet = props => {
                         style={{ backgroundColor: "#1cc88a" }}
                     >
                         <h6 className="m-0 font-weight-bold text-gray-100">
-                            Add new question to this set
+                            Add new question to this Quiz
                         </h6>
                     </a>
 
@@ -206,7 +206,7 @@ const QuestionSet = props => {
                                 initialValues={{
                                     question: "",
                                     option: "",
-                                    answer: ""
+                                    answer: "",
                                 }}
                             />
                             <button
