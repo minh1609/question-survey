@@ -1,6 +1,6 @@
 ### Description
 
-Application help user to build a test by using multiple choice question
+This website helps users create online quizzes under multiple-choice question format and keep data of who                         took it and their score. Users can use Gmail account log in. App is built with. App is built with NodeJS, React, MongoDB, and Restful API
 
 ### Project Milestones
 
@@ -9,14 +9,6 @@ Application help user to build a test by using multiple choice question
 -   [x] Authentication and User Role
 -   [x] High Score, Record for user, test
 -   [x] Search by name, description, hastag
--   [ ] Timer for test
--   [ ] Pagination
--   [ ] Sharing Question by link, QR code
--   [ ] Image Upload
--   [ ] Unit test, CI, CD
--   ...
--   [ ] Polishing UX, UI
-
 ### Demo
 
 https://question-survey.herokuapp.com/
