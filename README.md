@@ -1,6 +1,7 @@
 ### Description
 
-This website helps users create online quizzes under multiple-choice question format and keep data of who                         took it and their score. Users can use Gmail account log in. App is built with. App is built with NodeJS, React, MongoDB, and Restful API
+This website helps users create online quizzes under multiple-choice question format and keep data of who took it and their score. Users profile
+is safety secured by Google OAuth. App is built with NodeJS, React, MongoDB, and Restful API.
 
 ### Project Milestones
 
