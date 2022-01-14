@@ -15,7 +15,7 @@ module.exports = (app = express()) => {
         if (req.query.name) {
             //text search on more than 1 field
             query = QuestionSet.find({
-                $text: { $search: `/${req.query.name}/i` }
+                $text: { $search: `/${req.query.name}/i` },
             });
         }
         try {
@@ -41,7 +41,7 @@ module.exports = (app = express()) => {
     app.patch("/api/questionset/:setId", async (req, res) => {
         try {
             let result = await QuestionSet.findByIdAndUpdate(req.params.setId, {
-                $set: req.body
+                $set: req.body,
             });
             res.status(201).send(result);
         } catch (error) {
@@ -56,7 +56,7 @@ module.exports = (app = express()) => {
         let newQuestionSet = new QuestionSet({
             name,
             description,
-            owner: req.user.id
+            owner: req.user.id,
         });
 
         try {
@@ -69,8 +69,19 @@ module.exports = (app = express()) => {
 
     app.delete("/api/questionset/:setId", async (req, res) => {
         try {
-            let data = await QuestionSet.findByIdAndDelete(req.params.setId);
-            res.status(201).send(data);
+            let questionSet = await QuestionSet.findById(req.params.setId);
+
+            let questions = questionSet.questions;
+
+            for (let questionID of questions) {
+                await Question.findByIdAndDelete(questionID);
+            }
+
+            let deleteQuery = await QuestionSet.findByIdAndDelete(
+                req.params.setId
+            );
+
+            res.status(201).send(deleteQuery);
         } catch (error) {
             res.send(error);
         }
@@ -92,7 +103,7 @@ module.exports = (app = express()) => {
             .then(() => {
                 res.status(201).send({ message: "New question added to set" });
             })
-            .catch(err => {
+            .catch((err) => {
                 res.send(err);
             });
     });

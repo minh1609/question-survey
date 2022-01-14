@@ -1,6 +1,7 @@
 const express = require("express");
 
 const QuestionSet = require("../models/QuestionSet");
+const Question = require("../models/Question");
 const User = require("../models/User");
 
 module.exports = (app = express()) => {
@@ -16,12 +17,9 @@ module.exports = (app = express()) => {
         res.send(data);
     });
 
-    app.get("/test/api", async (req, res) => {
-        let ids = ["ab", "cd", "ef"];
-        ids = ids.filter(value => {
-            return value.localeCompare("ab") !== 0;
-        });
+    app.get("/test/api/:setid", async (req, res) => {
+        let data1 = await QuestionSet.findById(req.params.setid);
 
-        res.send(ids);
+        res.send(data1);
     });
 };

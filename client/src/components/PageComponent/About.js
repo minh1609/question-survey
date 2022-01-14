@@ -3,7 +3,7 @@ import React from "react";
 const About = () => {
     return (
         <div>
-            <a
+            {/* <a
                 className="nav-link"
                 href="https://github.com/minh1609/question-survey"
                 target="_blank"
@@ -19,7 +19,7 @@ const About = () => {
                 rel="noopener noreferrer"
             >
                 <i className="fas fa-user-alt mr-3"></i> My Portfolio
-            </a>
+            </a> */}
         </div>
     );
 };

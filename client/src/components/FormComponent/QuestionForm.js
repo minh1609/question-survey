@@ -1,7 +1,7 @@
 import React from "react";
 import { Field, reduxForm } from "redux-form";
 
-let QuestionForm = props => {
+let QuestionForm = (props) => {
     return (
         <div>
             <label>Question</label>
@@ -18,7 +18,7 @@ let QuestionForm = props => {
                 component="textarea"
                 type="text"
                 className="form-control mb-3"
-                placeholder="Example: Donald Trump||Donald Duck||Barack Obama"
+                placeholder="Example: Donald Trump||Joe Biden||Barack Obama||Kim Kardashian "
             />
             <label>Answer</label>
             <Field
@@ -35,7 +35,7 @@ let QuestionForm = props => {
 
 QuestionForm = reduxForm({
     form: "Question",
-    destroyOnUnmount: false
+    destroyOnUnmount: false,
 })(QuestionForm);
 
 export default QuestionForm;
