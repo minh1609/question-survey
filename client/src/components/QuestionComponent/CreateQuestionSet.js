@@ -6,7 +6,7 @@ import axios from "axios";
 
 let CreateQuestion = ({ history }) => {
     const dispatch = useDispatch();
-    let form = useSelector(state => state.form.QuestionSetMetaInfo);
+    let form = useSelector((state) => state.form.QuestionSetMetaInfo);
 
     useEffect(() => {
         dispatch({ type: "CLEAR" });
@@ -15,8 +15,10 @@ let CreateQuestion = ({ history }) => {
     const handleClick = async () => {
         let data = await axios.post("/api/questionset", {
             name: form.values.name,
-            description: form.values.description
+            description: form.values.description,
+            topic: form.values.topic,
         });
+
         if (data.status === 200 || data.status === 201) {
             alert("sucecessfully createad");
             history.push(`/questionset/${data.data._id}`);
@@ -37,7 +39,7 @@ let CreateQuestion = ({ history }) => {
 };
 
 CreateQuestion = reduxForm({
-    form: "QuestionSetMeta"
+    form: "QuestionSetMeta",
 })(CreateQuestion);
 
 export default CreateQuestion;

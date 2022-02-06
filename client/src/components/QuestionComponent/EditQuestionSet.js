@@ -9,11 +9,11 @@ import { DefaultPopUp } from "services/swal";
 const EditQuestionSet = ({ match, history }) => {
     let id = match.params.id;
     const dispatch = useDispatch();
-    let form = useSelector(state => state.form.QuestionSetMetaInfo);
-    let questionSet = useSelector(state => state.currentQuestionSet);
+    let form = useSelector((state) => state.form.QuestionSetMetaInfo);
+    let questionSet = useSelector((state) => state.currentQuestionSet);
 
     const initFormValue = async () => {
-        let name, description;
+        let name, description, topic;
         if (
             Object.keys(questionSet).length === 0 &&
             questionSet.constructor === Object
@@ -23,13 +23,16 @@ const EditQuestionSet = ({ match, history }) => {
 
             description = result.data.description;
             name = result.data.name;
+            topic = result.data.topic;
         } else {
             name = questionSet.name;
             description = questionSet.description;
+            topic = questionSet.topic;
         }
 
         dispatch(change("QuestionSetMetaInfo", "name", name));
         dispatch(change("QuestionSetMetaInfo", "description", description));
+        dispatch(change("QuestionSetMetaInfo", "topic", topic));
     };
 
     useEffect(() => {
@@ -37,10 +40,11 @@ const EditQuestionSet = ({ match, history }) => {
     }, []);
 
     const handleClick = async () => {
-        let { name, description } = form.values;
+        let { name, description, topic } = form.values;
         let result = await axios.patch(`/api/questionset/${id}`, {
             name,
-            description
+            description,
+            topic,
         });
         if (result.status === 200 || result.status === 201) {
             DefaultPopUp.fire({ type: "success" });

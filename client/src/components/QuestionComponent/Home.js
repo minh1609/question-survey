@@ -33,6 +33,9 @@ const Home = ({ history }) => {
                         <h6 className="m-0 font-weight-bold text-primary">
                             {e.name}
                         </h6>
+                        <h7 className="m-0 font-weight-light font-italic">
+                            {e.topic}
+                        </h7>
                     </div>
                     <div className="card-body">{e.description}</div>
                 </div>

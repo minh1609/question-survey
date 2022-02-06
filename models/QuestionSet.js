@@ -5,10 +5,10 @@ const questionSetSchema = new mongoose.Schema({
     questions: [{ type: mongoose.Schema.Types.ObjectId, ref: "questions" }],
     description: { type: String, default: "No description" },
     answers: { type: Array },
-    owner: { type: mongoose.Schema.Types.ObjectId, ref: "users" }
+    owner: { type: mongoose.Schema.Types.ObjectId, ref: "users", index: true },
+    topic: { type: String, default: "Topic", index: true },
 });
 
-questionSetSchema.index({ owner: 1 });
 questionSetSchema.index({ name: "text", description: "text" });
 
 const QuestionSet = mongoose.model("questionsets", questionSetSchema);
