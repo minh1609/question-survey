@@ -11,7 +11,7 @@ const Header = () => {
         dispatch(fetchUser());
     });
 
-    let auth = useSelector(state => state.auth);
+    let auth = useSelector((state) => state.auth);
 
     const renderDropDownMenu = () => {
         if (auth) {
@@ -62,12 +62,12 @@ const Header = () => {
                                         aria-haspopup="true"
                                         aria-expanded="false"
                                     >
-                                        {auth.name}{" "}
+                                        <strong>{auth.name} </strong>
                                         <i className="fas fa-bars fa-xs"></i>
                                     </span>
                                 ) : (
                                     <Link to="/login">
-                                        Log in for more feature
+                                        <strong>Log in for more feature</strong>
                                     </Link>
                                 )}
                                 <div

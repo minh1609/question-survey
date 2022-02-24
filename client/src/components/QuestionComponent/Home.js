@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Footer from "components/Footer";
 import SearchBar from "components/UtilitiesComponent/SearchBar";
+import FilterButtons from "components/UtilitiesComponent/FilterButtons";
 
 import { fetchQuestions } from "../../actions";
 
@@ -14,7 +15,7 @@ const Home = ({ history }) => {
         dispatch(fetchQuestions());
     }, []);
 
-    const redirect = (id) => {
+    const redirectToQuestionSetPage = (id) => {
         history.push(`/questionset/${id}`);
     };
 
@@ -28,7 +29,7 @@ const Home = ({ history }) => {
                     <div
                         className="card-header py-3"
                         style={{ cursor: "pointer" }}
-                        onClick={() => redirect(e._id)}
+                        onClick={() => redirectToQuestionSetPage(e._id)}
                     >
                         <h6 className="m-0 font-weight-bold text-primary">
                             {e.name}
@@ -45,10 +46,23 @@ const Home = ({ history }) => {
 
     return (
         <div>
+            {auth &&
+                auth.role === "admin" && ( //render link to admin page
+                    <button
+                        className="btn btn-info mb-3"
+                        onClick={() => {
+                            history.push("/admin");
+                        }}
+                    >
+                        Hi admin, click here to access the admin page
+                    </button>
+                )}
+
             <SearchBar />
+            <FilterButtons />
             {auth && ( //only render button if user is log in
                 <button
-                    className="btn btn-success shadow p-2 mb-2 "
+                    className="btn btn-success shadow p-2 m-2 "
                     onClick={() => {
                         history.push("/create/questionset");
                     }}
@@ -62,7 +76,6 @@ const Home = ({ history }) => {
             <div className="row" style={{ marginBottom: "80px" }}>
                 {renderQuestionList()}
             </div>
-            <Footer />
         </div>
     );
 };

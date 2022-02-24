@@ -14,6 +14,7 @@ import TestRecord from "components/RecordComponent/TestRecord";
 import EditQuestionSet from "components/QuestionComponent/EditQuestionSet";
 import Header from "./Header";
 import Test from "components/TestComponent";
+import Admin from "components/PageComponent/Admin";
 
 import TransitionWrapper from "components/TransitionWrapper";
 
@@ -54,6 +55,7 @@ const App = () => {
                         path="/test-record/:id"
                         component={TestRecord}
                     />
+                    <Route exact path="/admin" component={Admin} />
                 </TransitionWrapper>
             </div>
         </BrowserRouter>

@@ -7,7 +7,12 @@ export const fetchQuestions = () => async (dispatch, getState) => {
     dispatch({ type: FETCH_QUESTIONS, payload: res.data });
 };
 
-export const fetchQuestion = id => async (dispatch, getState) => {
+export const fetchQuestionsByTopic = (topic) => async (dispatch, getState) => {
+    const res = await axios.get(`/api/topic/${topic}`);
+    dispatch({ type: FETCH_QUESTIONS, payload: res.data });
+};
+
+export const fetchQuestion = (id) => async (dispatch, getState) => {
     const res = await axios.get(`/api/questionset/${id}`);
     dispatch({ type: FETCH_QUESTION, payload: res.data });
 };
