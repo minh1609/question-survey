@@ -38,6 +38,19 @@ module.exports = (app = express()) => {
         }
     });
 
+    app.get("/api/topic/:topicName", async (req, res) => {
+        console.log(req.params.topicName);
+
+        try {
+            let result = await QuestionSet.find({
+                topic: req.params.topicName,
+            });
+            res.send(result);
+        } catch (error) {
+            res.send(error);
+        }
+    });
+
     app.patch("/api/questionset/:setId", async (req, res) => {
         try {
             let result = await QuestionSet.findByIdAndUpdate(req.params.setId, {
