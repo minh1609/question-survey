@@ -7,6 +7,7 @@ const questionSetSchema = new mongoose.Schema({
     answers: { type: Array },
     owner: { type: mongoose.Schema.Types.ObjectId, ref: "users", index: true },
     topic: { type: String, default: "Topic", index: true },
+    time: { type: Number, default: 60 },
 });
 
 questionSetSchema.index({ name: "text", description: "text" });

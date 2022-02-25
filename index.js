@@ -13,6 +13,8 @@ mongoose.connect(process.env.mongoURI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });
+mongoose.set("useFindAndModify", false);
+mongoose.set("useCreateIndex", true);
 
 //Middleware config
 app.use(

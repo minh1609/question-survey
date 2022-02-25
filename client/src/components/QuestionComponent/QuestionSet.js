@@ -30,9 +30,10 @@ const QuestionSet = (props) => {
     //is user the owner of this question set ???
     const isAuthorized = () => {
         if (
-            auth &&
-            questionList.owner &&
-            auth._id.localeCompare(questionList.owner._id) === 0
+            (auth &&
+                questionList.owner &&
+                auth._id.localeCompare(questionList.owner._id) === 0) ||
+            (auth && auth.role && auth.role === "admin")
         ) {
             return true;
         } else {
@@ -200,6 +201,7 @@ const QuestionSet = (props) => {
                         </h6>
                     </a>
 
+                    {/* Add new question to question set card */}
                     <div className="collapse" id="collapseCard">
                         <div className="card-body">
                             <QuestionForm

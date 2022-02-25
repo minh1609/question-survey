@@ -23,6 +23,7 @@ let Form = (props) => {
                 autoComplete="off"
                 style={{ whiteSpace: "pre-line" }}
             />
+
             <label>Topic</label>
             <Field
                 name="topic"
@@ -34,6 +35,14 @@ let Form = (props) => {
                 <option value="movie">Movie</option>
                 <option value="mix">Mix</option>
             </Field>
+
+            <label>Time</label>
+            <Field
+                name="time"
+                component="input"
+                type="number"
+                className="form-control mb-3"
+            />
         </div>
     );
 };

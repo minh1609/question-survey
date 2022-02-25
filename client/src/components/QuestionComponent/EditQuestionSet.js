@@ -13,26 +13,31 @@ const EditQuestionSet = ({ match, history }) => {
     let questionSet = useSelector((state) => state.currentQuestionSet);
 
     const initFormValue = async () => {
-        let name, description, topic;
+        let name, description, topic, time;
+
+        //fetch data if data is not availble in state
+
         if (
             Object.keys(questionSet).length === 0 &&
             questionSet.constructor === Object
         ) {
-            //fetch data if data is not availble in state
             let result = await axios.get(`/api/questionset/${id}`);
 
             description = result.data.description;
             name = result.data.name;
             topic = result.data.topic;
+            time = result.data.time;
         } else {
             name = questionSet.name;
             description = questionSet.description;
             topic = questionSet.topic;
+            time = questionSet.time;
         }
 
         dispatch(change("QuestionSetMetaInfo", "name", name));
         dispatch(change("QuestionSetMetaInfo", "description", description));
         dispatch(change("QuestionSetMetaInfo", "topic", topic));
+        dispatch(change("QuestionSetMetaInfo", "time", time));
     };
 
     useEffect(() => {
@@ -40,11 +45,12 @@ const EditQuestionSet = ({ match, history }) => {
     }, []);
 
     const handleClick = async () => {
-        let { name, description, topic } = form.values;
+        let { name, description, topic, time } = form.values;
         let result = await axios.patch(`/api/questionset/${id}`, {
             name,
             description,
             topic,
+            time,
         });
         if (result.status === 200 || result.status === 201) {
             DefaultPopUp.fire({ type: "success" });
