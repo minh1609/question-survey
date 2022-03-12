@@ -26,7 +26,7 @@ let QuestionForm = (props) => {
                 component="input"
                 type="number"
                 className="form-control"
-                placeholder="Example: 0"
+                placeholder="Example: 0 for Donald Trump, 1 for Biden, 2 for Obama, etc"
             />
             <small>0 for first option, 1 for second, ...</small>
         </div>

@@ -4,7 +4,6 @@ import { reduxForm, change } from "redux-form";
 import QuestionSetForm from "../FormComponent/QuestionSetForm";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-import { fetchQuestion } from "actions";
 
 let CreateQuestion = () => {
     const dispatch = useDispatch();
@@ -28,7 +27,7 @@ let CreateQuestion = () => {
 
         if (res.status === 200 || res.status === 201) {
             alert(
-                "new qyestion sucecessfully createad, click to redirect to the new question"
+                "New question sucecessfully createad, click to redirect to the new question"
             );
             history.push(`/questionset/${res.data._id}`);
         }
