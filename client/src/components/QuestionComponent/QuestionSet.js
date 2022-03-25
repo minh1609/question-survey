@@ -74,7 +74,7 @@ const QuestionSet = (props) => {
         });
 
         if (auth) {
-            axios.post("/api/record", { score: percentScore, setId: id });
+            axios.post("/api/report", { score: percentScore, setId: id });
         }
     };
 

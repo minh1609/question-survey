@@ -64,7 +64,6 @@ module.exports = (app = express()) => {
 
     //Add a new question set
     app.post("/api/questionset", requireLogIn, async (req, res) => {
-        console.log(req);
         let newQuestionSet = new QuestionSet({
             ...req.body,
             owner: req.user._id,
