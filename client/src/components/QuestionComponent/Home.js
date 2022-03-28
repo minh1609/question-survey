@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Footer from "components/Footer";
+import { useHistory } from "react-router-dom";
+import Swal from "sweetalert2";
 import SearchBar from "components/UtilitiesComponent/SearchBar";
 import FilterButtons from "components/UtilitiesComponent/FilterButtons";
 
@@ -16,12 +17,13 @@ const Home = ({ history }) => {
     }, []);
 
     const redirectToQuestionSetPage = (id) => {
-        history.push(`/questionset/${id}`);
+        Swal.fire({ title: `` });
+        //history.push(`/questionset/${id}`);
     };
 
     const renderQuestionList = () => {
-        return questions.map((e) => (
-            <div key={e._id} className="col-sm-12 col-lg-6">
+        return Object.keys(questions).map((e) => (
+            <div key={e} className="col-sm-12 col-lg-6">
                 <div
                     className="card shadow mb-4"
                     style={{ whiteSpace: "pre-wrap" }}
@@ -32,13 +34,13 @@ const Home = ({ history }) => {
                         onClick={() => redirectToQuestionSetPage(e._id)}
                     >
                         <h6 className="m-0 font-weight-bold text-primary">
-                            {e.name}
+                            {questions[e].name}
                         </h6>
                         <h7 className="m-0 font-weight-light font-italic">
-                            {e.topic}
+                            {questions[e].topic}
                         </h7>
                     </div>
-                    <div className="card-body">{e.description}</div>
+                    <div className="card-body">{questions[e].description}</div>
                 </div>
             </div>
         ));
@@ -60,7 +62,7 @@ const Home = ({ history }) => {
 
             <SearchBar />
             <FilterButtons />
-            {auth && ( //only render button if user is log in
+            {auth && ( // render "create question" button if user is log in
                 <button
                     className="btn btn-success shadow p-2 m-2 "
                     onClick={() => {
@@ -71,7 +73,6 @@ const Home = ({ history }) => {
                 </button>
             )}
             <br />
-            <i className="my-1">Sample Quiz</i>
 
             <div className="row" style={{ marginBottom: "80px" }}>
                 {renderQuestionList()}
