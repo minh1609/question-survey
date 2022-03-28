@@ -154,7 +154,7 @@ const QuestionSet = (props) => {
                     let data = await axios.delete(`/api/questionset/${id}`);
                     if (data.status === 200 || data.status === 201) {
                         history.push("/");
-                        DefaultPopUp.fire({ type: "success" });
+                        DefaultPopUp.fire({ icon: "success" });
                     }
                 }
             }
