@@ -1,11 +1,12 @@
 // This Component display each question set
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import QuestionForm from "../FormComponent/QuestionForm";
 import { reset } from "redux-form";
 import { DefaultPopUp } from "services/swal";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 import Question from "./Question";
 import { fetchQuestion } from "actions";
@@ -18,6 +19,7 @@ const QuestionSet = (props) => {
     let userAnswer = useSelector((state) => state.userAnswer) || [];
     let form = useSelector((state) => state.form.Question);
     let auth = useSelector((state) => state.auth);
+    const [timer, setTimer] = useState(100);
 
     let id = props.match.params.id; //question set ID
     let history = props.history;
@@ -25,7 +27,28 @@ const QuestionSet = (props) => {
     useEffect(() => {
         dispatch(fetchQuestion(id)); //auto fetch data when page loaded
         dispatch({ type: "CLEAR_ANSWER" });
-    }, []);
+
+        if (questionList.time) {
+            setTimer(questionList.time);
+        }
+    }, [questionList.time]);
+
+    //set timer
+    useEffect(() => {
+        if (isAuthorized()) {
+            return;
+        }
+        if (timer < 0) {
+            marking();
+            return;
+        }
+
+        const intervalId = setInterval(() => {
+            setTimer(timer - 1);
+        }, 1000);
+
+        return () => clearInterval(intervalId);
+    }, [timer]);
 
     //is user the owner of this question set ???
     const isAuthorized = () => {
@@ -66,7 +89,7 @@ const QuestionSet = (props) => {
                 score++;
             }
         }
-        let percentScore = (score / rightAnswer.length) * 100;
+        let percentScore = (score / rightAnswer.length) * 100 || 0;
         DefaultPopUp.fire({
             title: <h5>Your Score : </h5>,
             html: <ScoreBar score={score} totalQuestion={rightAnswer.length} />,
@@ -149,6 +172,8 @@ const QuestionSet = (props) => {
         }
     };
 
+    //timer
+
     return (
         <div>
             {/* MENU BOX */}
@@ -174,13 +199,24 @@ const QuestionSet = (props) => {
             {/* END MENU BOX */}
 
             <AnswerTracking>
-                <button
-                    className=" btn btn-danger m-1 shadow "
-                    onClick={marking}
-                >
-                    Mark
-                </button>
+                {!isAuthorized() ? (
+                    <button
+                        className=" btn btn-danger m-1 shadow  "
+                        onClick={marking}
+                    >
+                        Mark
+                    </button>
+                ) : (
+                    <div className="bg-info text-white">
+                        Because you are admin or/and quiz's owner, you can not
+                        take this quiz
+                    </div>
+                )}
             </AnswerTracking>
+
+            <div className="fixed-bottom text-light bg-primary">
+                Time left: {timer} seconds
+            </div>
 
             {renderEachQuestion()}
 

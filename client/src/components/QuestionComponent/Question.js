@@ -14,7 +14,9 @@ import convertNumber from "function/convertNumberToStr";
 
 const Question = ({ data, questionNumber, setId, isAuthorized }) => {
     const dispatch = useDispatch();
-    let selectedAnswer = useSelector(state => state.userAnswer[questionNumber]);
+    let selectedAnswer = useSelector(
+        (state) => state.userAnswer[questionNumber]
+    );
 
     const submitAnswer = (questionNumber, option) => {
         dispatch(answer(questionNumber, option));
@@ -22,7 +24,7 @@ const Question = ({ data, questionNumber, setId, isAuthorized }) => {
 
     const deleteQuestion = async () => {
         DefaultPopUp.fire({
-            title: "Confirm Delete"
+            title: "Confirm Delete",
         }).then(async ({ value }) => {
             if (value) {
                 let result = await axios.delete(
@@ -36,7 +38,7 @@ const Question = ({ data, questionNumber, setId, isAuthorized }) => {
         });
     };
 
-    const renderOptionColor = optionIndex => {
+    const renderOptionColor = (optionIndex) => {
         if (optionIndex === selectedAnswer)
             return " bg-info text-gray-100 font-weight-bold";
         else {
@@ -66,7 +68,7 @@ const Question = ({ data, questionNumber, setId, isAuthorized }) => {
     };
 
     return (
-        <div class="card shadow mb-4 border-bottom-secondary">
+        <div className="card shadow mb-4 border-bottom-secondary">
             {/* This span is used to trick the browser go 100px above where it suppose to go  */}
             <span
                 id={`question${questionNumber}`}
