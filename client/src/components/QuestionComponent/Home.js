@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
 import Swal from "sweetalert2";
 import SearchBar from "components/UtilitiesComponent/SearchBar";
 import FilterButtons from "components/UtilitiesComponent/FilterButtons";
@@ -17,8 +16,19 @@ const Home = ({ history }) => {
     }, []);
 
     const redirectToQuestionSetPage = (id) => {
-        Swal.fire({ title: `` });
-        //history.push(`/questionset/${id}`);
+        Swal.fire({
+            title: `Warning`,
+            html: `
+            You have <strong> ${questions[id].time} </strong> seconds to finish this quiz, click "Start" when you are ready.
+            <br></br>
+            <small><i>Admin and quiz's owner can not take this quiz but are able to edit/delete it </i></small>
+            `,
+            confirmButtonText: "Start",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                history.push(`/questionset/${id}`);
+            }
+        });
     };
 
     const renderQuestionList = () => {
@@ -31,14 +41,14 @@ const Home = ({ history }) => {
                     <div
                         className="card-header py-3"
                         style={{ cursor: "pointer" }}
-                        onClick={() => redirectToQuestionSetPage(e._id)}
+                        onClick={() => redirectToQuestionSetPage(e)}
                     >
                         <h6 className="m-0 font-weight-bold text-primary">
                             {questions[e].name}
                         </h6>
-                        <h7 className="m-0 font-weight-light font-italic">
-                            {questions[e].topic}
-                        </h7>
+                        <p className="m-0 font-weight-light font-italic">
+                            {questions[e].topic} - {questions[e].time} seconds
+                        </p>
                     </div>
                     <div className="card-body">{questions[e].description}</div>
                 </div>
@@ -48,17 +58,20 @@ const Home = ({ history }) => {
 
     return (
         <div>
-            {auth &&
-                auth.role === "admin" && ( //render link to admin page
-                    <button
-                        className="btn btn-info mb-3"
-                        onClick={() => {
-                            history.push("/admin");
-                        }}
-                    >
-                        Hi admin, click here to access the admin page
-                    </button>
-                )}
+            {
+                //render admin button
+                auth &&
+                    auth.role === "admin" && ( //render link to admin page
+                        <button
+                            className="btn btn-info mb-3"
+                            onClick={() => {
+                                history.push("/admin");
+                            }}
+                        >
+                            Hi admin, click here to access the admin page
+                        </button>
+                    )
+            }
 
             <SearchBar />
             <FilterButtons />

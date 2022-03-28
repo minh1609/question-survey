@@ -5,8 +5,8 @@ import axios from "axios";
 import QuestionForm from "../FormComponent/QuestionForm";
 import { reset } from "redux-form";
 import { DefaultPopUp } from "services/swal";
-import { Link } from "react-router-dom";
-import Swal from "sweetalert2";
+import { Link, useHistory } from "react-router-dom";
+import convertNumber from "function/convertNumberToStr";
 
 import Question from "./Question";
 import { fetchQuestion } from "actions";
@@ -14,15 +14,18 @@ import ScoreBar from "components/UtilitiesComponent/ScoreBar";
 import AnswerTracking from "components/UtilitiesComponent/AnswerTracking";
 
 const QuestionSet = (props) => {
+    let history = useHistory();
+
     const dispatch = useDispatch();
     let questionList = useSelector((state) => state.currentQuestionSet);
     let userAnswer = useSelector((state) => state.userAnswer) || [];
     let form = useSelector((state) => state.form.Question);
     let auth = useSelector((state) => state.auth);
     const [timer, setTimer] = useState(100);
+    const [isTimerRunning, setTimerRunning] = useState(true);
 
     let id = props.match.params.id; //question set ID
-    let history = props.history;
+    //let history = props.history;
 
     useEffect(() => {
         dispatch(fetchQuestion(id)); //auto fetch data when page loaded
@@ -38,13 +41,15 @@ const QuestionSet = (props) => {
         if (isAuthorized()) {
             return;
         }
-        if (timer < 0) {
+        if (timer <= 0 && isTimerRunning) {
             marking();
             return;
         }
 
         const intervalId = setInterval(() => {
-            setTimer(timer - 1);
+            if (isTimerRunning) {
+                setTimer(timer - 1);
+            }
         }, 1000);
 
         return () => clearInterval(intervalId);
@@ -81,24 +86,54 @@ const QuestionSet = (props) => {
     };
 
     const marking = () => {
+        setTimerRunning(false);
         let score = 0;
         let rightAnswer = questionList.questions.map((e) => e.answer) || [];
 
+        //calculate score
         for (let i = 0; i < userAnswer.length; i++) {
             if (userAnswer[i] === rightAnswer[i]) {
                 score++;
             }
         }
         let percentScore = (score / rightAnswer.length) * 100 || 0;
-        DefaultPopUp.fire({
-            title: <h5>Your Score : </h5>,
-            html: <ScoreBar score={score} totalQuestion={rightAnswer.length} />,
-            showConfirmButton: false,
-        });
 
         if (auth) {
             axios.post("/api/report", { score: percentScore, setId: id });
         }
+
+        DefaultPopUp.fire({
+            title: <h5>Your Score : </h5>,
+            html: (
+                <div>
+                    <ScoreBar
+                        score={score}
+                        totalQuestion={rightAnswer.length}
+                    />
+                    Correct answer
+                    <br></br>
+                    {rightAnswer.map((e, i) => {
+                        return (
+                            <span>
+                                {i}:{convertNumber(e)}{" "}
+                            </span>
+                        );
+                    })}
+                </div>
+            ),
+
+            allowOutsideClick: false,
+            showConfirmButton: true,
+            showCancelButton: true,
+            confirmButtonText: "Go back to the main screen",
+            cancelButtonText: "Stay and redo the quiz",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                history.push("/");
+            } else if (result.isDismissed) {
+                window.location.reload();
+            }
+        });
     };
 
     const addNewQuestion = async () => {
