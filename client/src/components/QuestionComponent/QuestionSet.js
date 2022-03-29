@@ -244,8 +244,7 @@ const QuestionSet = (props) => {
                     </button>
                 ) : (
                     <div className="bg-info text-white">
-                        Because you are admin or/and quiz's owner, you can not
-                        take this quiz
+                        Admin and quiz's owner can not take this quiz
                     </div>
                 )}
             </AnswerTracking>
