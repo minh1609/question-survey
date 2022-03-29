@@ -8,8 +8,10 @@ is safety secured by Google OAuth. App is built with NodeJS, React, MongoDB, and
 -   [x] CRUD operation for every question, question set
 -   [x] Deployment
 -   [x] Authentication and User Role
--   [x] High Score, Record for user, test
+-   [x] High Score, Record for user and quiz
 -   [x] Search by name, description, hastag
+-   [x] Timer for quiz taker
+-   [x] Admin page
 ### Demo
 
 https://question-survey.herokuapp.com/
