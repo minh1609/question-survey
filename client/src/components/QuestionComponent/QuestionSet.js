@@ -106,6 +106,7 @@ const QuestionSet = (props) => {
             title: <h5>Your Score : </h5>,
             html: (
                 <div>
+                    {percentScore <= 50 ? "Bad" : "Good"} <br></br>
                     <ScoreBar
                         score={score}
                         totalQuestion={rightAnswer.length}
