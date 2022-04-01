@@ -53,7 +53,11 @@ const EditQuestionSet = ({ match, history }) => {
             time,
         });
         if (result.status === 200 || result.status === 201) {
-            DefaultPopUp.fire({ type: "success" });
+            DefaultPopUp.fire({
+                icon: "success",
+                showCancelButton: false,
+                text: "Update complete",
+            });
         }
     };
 
