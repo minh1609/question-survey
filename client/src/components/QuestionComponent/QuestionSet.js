@@ -99,7 +99,7 @@ const QuestionSet = (props) => {
         let percentScore = (score / rightAnswer.length) * 100 || 0;
 
         if (auth) {
-            axios.post("/api/report", { score: percentScore, setId: id });
+            axios.post("/api/record", { score: percentScore, setId: id });
         }
 
         DefaultPopUp.fire({
