@@ -3,17 +3,26 @@
 This website helps users create online quizzes under multiple-choice question format and keep data of who took it and their score. Users profile
 is safety secured by Google OAuth. App is built with NodeJS, React, MongoDB, and Restful API.
 
+### Run on local
+
+Make sure that nodemon, all dependencies are installed
+npm install
+cd client
+npm install
+npm -i g nodemon
+
+npm run dev
+
 ### Project Milestones
 
--   [x] CRUD operation for every question, question set
--   [x] Deployment
--   [x] Authentication and User Role
--   [x] High Score, Record for user and quiz
--   [x] Search by name, description, hastag
--   [x] Timer for quiz taker
--   [x] Admin page
+- [x] CRUD operation for every question, question set
+- [x] Deployment
+- [x] Authentication and User Role
+- [x] High Score, Record for user and quiz
+- [x] Search by name, description, hastag
+- [x] Timer for quiz taker
+- [x] Admin page
+
 ### Demo
 
 https://question-survey.herokuapp.com/
-
-
