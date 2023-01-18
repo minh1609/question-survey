@@ -4,7 +4,7 @@
     "description": "Email collect feedback",
     "main": "index.js",
     "engines": {
-        "node": "14.x",
+        "node": "8.x",
         "npm": "5.0.3"
     },
     "scripts": {
